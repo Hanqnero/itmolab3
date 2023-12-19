@@ -1,5 +1,6 @@
 package ru.itmo.student.lab3.people;
 
+import ru.itmo.student.lab3.environment.*;
 import java.util.LinkedList;
 
 public class Person {

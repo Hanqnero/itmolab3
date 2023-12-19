@@ -13,8 +13,6 @@ public class Stove {
 
     public void heat(Food food) {
         if (food.getCookedDegree() == Food.CookedDegree.Burned) return;
-//        food.setCookedDegree(ru.itmo.student.lab3.environment.Food.CookedDegree.values()[food.getCookedDegree().ordinal()]);
-
         var currentCookedDegree = food.getCookedDegree().ordinal();
         var newCookedDegree = Food.CookedDegree.values()[currentCookedDegree+1];
 

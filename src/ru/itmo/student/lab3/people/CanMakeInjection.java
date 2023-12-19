@@ -1,5 +1,6 @@
 package ru.itmo.student.lab3.people;
 
+import ru.itmo.student.lab3.environment.Medicine;
 import ru.itmo.student.lab3.people.Person;
 
 public interface CanMakeInjection {
