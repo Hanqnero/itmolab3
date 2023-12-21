@@ -1,13 +1,36 @@
 package ru.itmo.student.lab3.environment;
 
+import ru.itmo.student.lab3.environment.abstractions.Scene;
 import ru.itmo.student.lab3.people.Person;
 
-public class Photo {
-    public enum Type { Polaroid, Digital, Other, }
-    private final Person picturedPerson;
+public class Photo implements CanBeHeld {
+    private final Type type;
+    private final Scene picturedScene;
+    private Person holder;
 
-    public Photo(Person p) { this.picturedPerson = p; }
+    public Photo(Scene s, Type t) {
+        picturedScene = s;
+        type = t;
+    }
 
-    public Person getPicturedPerson() { return picturedPerson; }
+    public Type getType() {
+        return type;
+    }
 
+    @Override
+    public void whenHeld(Person holder) {
+       this.holder = holder;
+    }
+
+    @Override
+    public Person getHolder() {
+        return this.holder;
+    }
+
+    public Scene getPicturedScene() { return picturedScene; }
+
+
+    public enum Type {
+        Polaroid, Digital
+    }
 }

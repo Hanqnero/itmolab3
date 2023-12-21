@@ -1,14 +1,28 @@
 package ru.itmo.student.lab3.environment;
 
-public class Cup extends Container<Food> implements Furniture {
+import ru.itmo.student.lab3.environment.food.Food;
+
+public class Cup extends Container<Food> {
 
     protected Temperature temp;
 
     @Override
-    public boolean fill(Food f) {
-        this.content = f;
-        this.setTemp(f.getTemp());
-        return true; // Can not fail
+    public void fill(Food f) {
+        if (this.isEmpty()) {
+            this.content = f;
+            this.setEmpty(false);
+        }
+    }
+
+    @Override
+    public void empty() {
+        this.content = null;
+        this.setEmpty(true);
+    }
+
+    @Override
+    public Food getContent() {
+        return this.content;
     }
 
     private void setTemp(Temperature t) {

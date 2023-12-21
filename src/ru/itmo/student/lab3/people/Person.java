@@ -1,41 +1,49 @@
 package ru.itmo.student.lab3.people;
 
-import ru.itmo.student.lab3.environment.*;
+import ru.itmo.student.lab3.environment.abstractions.Scene;
+import ru.itmo.student.lab3.environment.abstractions.Location;
+
+import java.util.Collection;
 import java.util.LinkedList;
+import java.util.Set;
 
-public class Person {
+public abstract class Person {
     protected final String name;
-    protected final Color favoriteClothesColor;
-    protected final Food favoriteFood;
-    protected int medicalCondition;
-    protected LookType appearance;
-    private LinkedList<Clothes> currentClothes;
+
+    private Scene currentScene;
     private Location currentLocation;
-    private ActionMood currentMood;
+    private Location.Position locationPosition = Location.Position.Unspecified;
+    private Set<ActionMood> currentMoods;
 
-    public Person(String name_,
-                  Color favoriteClothesColor_,
-                  Food favoriteFood_)
-    {
-        name = name_;
-        favoriteClothesColor = favoriteClothesColor_;
-        favoriteFood = favoriteFood_;
+    public Person(String name) {
+        this.name = name;
     }
-
-    public void setAppearance(LookType a) { this.appearance = a; }
-    public LookType getAppearance() { return this.appearance; }
-
-    public Food getFavoriteFood() { return this.favoriteFood; }
-
-    public Color getFavoriteClothesColor() { return this.favoriteClothesColor; }
-
-    public void setMedicalCondition(int medicalCondition) {
-        this.medicalCondition = medicalCondition;
-    }
-    public int getMedicalCondition() { return this.medicalCondition; }
 
     public void goOutOfLocation() { this.currentLocation.removeCharacter(this); }
 
-    public void setCurrentMood(ActionMood currentMood) { this.currentMood = currentMood; }
-    public ActionMood getCurrentMood() { return currentMood; }
+    public Set<ActionMood> getCurrentMoods() { return currentMoods; }
+
+//    public void setCurrentMoods(ActionMood currentMoods) { this.currentMoods = currentMoods; }
+
+    public Scene getCurrentScene() {
+        return this.currentScene;
+    }
+
+    public void setCurrentScene(Scene currentScene) {
+
+        this.currentScene = currentScene;
+    }
+
+    public void doMoodAction(ActionMood mood) {
+        switch (mood) {
+            case Screaming -> System.out.println(name + "Screams");
+        }
+    }
+
+    public void addNewMood(ActionMood mood) {
+        currentMoods.add(mood);
+    }
+    public void removeMood(ActionMood mood) {
+        currentMoods.remove(mood);
+    }
 }

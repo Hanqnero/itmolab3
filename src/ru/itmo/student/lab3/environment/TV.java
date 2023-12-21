@@ -1,15 +1,27 @@
 package ru.itmo.student.lab3.environment;
 
+import ru.itmo.student.lab3.people.CanWatchTV;
+import ru.itmo.student.lab3.people.HasMedicalCondition;
 import ru.itmo.student.lab3.people.Person;
 
-public class TV {
+import java.util.Collection;
+
+public class TV implements Furniture {
     protected boolean isOn;
     private TVProgramme currentProgramme;
 
-    public void setState(boolean s) { isOn = s; }
     public boolean getState() { return this.isOn; }
 
-    public void watch(Person[] people) {
-        if (this.isOn) for (var p: people) p.setMedicalCondition(p.getMedicalCondition() + currentProgramme.getBrainDamage());
+    public void setState(boolean s) { isOn = s; }
+
+    public void whenWatched(CanWatchTV person) {
+        if (!getState() || currentProgramme == null) return;
+
+        person.setMedicalCondition(person.getMedicalCondition() - currentProgramme.brainDamage());
     }
+
+    public void setCurrentProgramme(TVProgramme currentProgramme) {
+        this.currentProgramme = currentProgramme;
+    }
+
 }

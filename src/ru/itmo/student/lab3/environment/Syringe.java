@@ -1,6 +1,9 @@
 package ru.itmo.student.lab3.environment;
 
-public class Syringe extends Container<Medicine>{
+import ru.itmo.student.lab3.environment.medicine.Injection;
+import ru.itmo.student.lab3.environment.medicine.Medicine;
+
+public class Syringe extends Container<Injection>{
     private boolean needleReady = false;
 
     public void getNeedleReady() {
@@ -10,10 +13,19 @@ public class Syringe extends Container<Medicine>{
         return this.needleReady;
     }
     @Override
-    public boolean fill(Medicine m) {
-        if (m.getType() == Medicine.Type.Injection) {
-           this.content = m;
-        }
-        return m.getType() == Medicine.Type.Injection;
+    public void fill(Injection m) {
+        setEmpty(false);
+        content = m;
+    }
+
+    @Override
+    public void empty() {
+        setEmpty(true);
+        content = null;
+    }
+
+    @Override
+    public Injection getContent() {
+        return content;
     }
 }

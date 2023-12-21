@@ -7,12 +7,22 @@ public class Coffin extends Container<Person> implements Furniture {
     protected State state = State.Closed;
 
     @Override
-    public boolean fill(Person o) {
+    public void fill(Person o) {
         if (this.state == State.Open) {
             this.content = o;
             o.goOutOfLocation();
         }
-        return this.state == State.Open;
+    }
+
+    @Override
+    public void empty() {
+       setEmpty(true);
+       content = null;
+    }
+
+    @Override
+    public Person getContent() {
+        return content;
     }
 
     public State getState() { return state; }

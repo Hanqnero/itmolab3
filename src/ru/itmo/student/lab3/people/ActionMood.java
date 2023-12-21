@@ -2,9 +2,13 @@ package ru.itmo.student.lab3.people;
 
 public enum ActionMood {
     Default,
-    Silently,
+    Silent,
     Patiently,
-    Uncomplainingly,
-    WhileScreaming,
+    WithoutComplains,
+    Screaming,
     Roughly,
+
+    Shocked,
+    ConcentratedInsanity,
+    Calm,
 }
