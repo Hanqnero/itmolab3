@@ -21,7 +21,7 @@ public class Main {
 
         mainLouis.nod(30f);
 
-        var breakfast = new Breakfast(150);
+        var breakfast = new Breakfast(150, Taste.Default);
         mainLouis.consumeFood(breakfast);
 
         var hotChocolate = new HotChocolate(100, Taste.Disgusting, Temperature.Cold);
@@ -58,7 +58,7 @@ public class Main {
         mainEllie.addClothingItem(new Clothes(Color.Yellow, Clothes.ClothingType.Blouse));
         mainEllie.addClothingItem(new Clothes(Color.LightBlue, Clothes.ClothingType.Jeans));
 
-        breakfast = new Breakfast(150);
+        breakfast = new Breakfast(150, Taste.Default);
         mainEllie.consumeFood(breakfast);
 
 
