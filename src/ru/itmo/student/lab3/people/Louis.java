@@ -5,6 +5,7 @@ import ru.itmo.student.lab3.environment.Container;
 import ru.itmo.student.lab3.environment.Stove;
 import ru.itmo.student.lab3.environment.abstractions.Desire;
 import ru.itmo.student.lab3.environment.abstractions.Location;
+import ru.itmo.student.lab3.environment.abstractions.Scene;
 import ru.itmo.student.lab3.environment.food.Food;
 import ru.itmo.student.lab3.environment.food.FoodToCook;
 
@@ -14,12 +15,13 @@ import static java.lang.Float.max;
 import static java.lang.Float.min;
 
 public class Louis extends Person implements
-        CanConsumeFood,CanHaveDesires,CanWearClothes, HasDislikedItems {
+        CanConsumeFood,CanHaveDesires,CanWearClothes,HasDislikedItems {
     private int saturation = 0;
     private Desire currentDesire;
     private LinkedList<Clothes> currentClothes;
     private HairLength faceHairLength;
     private HairStyle hairStyle = HairStyle.Messy;
+    private Scene currentlyThinkingOf;
 
     public Louis() { super("Louis"); }
 
@@ -136,4 +138,14 @@ public class Louis extends Person implements
         this.dislikedItems.remove(o);
     }
 
+    public void thinkOfAScene(Scene s) {
+        currentlyThinkingOf = s;
+        // Imagining a complex scene more time
+        try {
+            long sceneComplexity = s.getLocation().getCharacters().size() + s.getLocation().getObjects().size();
+            Thread.sleep(sceneComplexity * 1000L);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

@@ -9,6 +9,7 @@ import ru.itmo.student.lab3.people.*;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
+import java.util.LinkedList;
 
 import static ru.itmo.student.lab3.environment.abstractions.TimeStamp.Type.Regular;
 
@@ -102,7 +103,36 @@ public class Main {
         gageInTragedy.driveRisky(0f, 50f);
 //        Gage dead now
 
-//        TODO: SKIPPED A BIT OF TEXT HERE
+
+        var louisThought = new Scene();
+        louisThought.setLocation(new Location(Location.Type.Ceremony));
+
+        var peopleInLouisThought = new LinkedList<Person>();
+        peopleInLouisThought.add(new Louis());
+        peopleInLouisThought.add(new Rachel());
+        peopleInLouisThought.add(new Ellie());
+        peopleInLouisThought.add(new Jud());
+
+        var gageInLouisThought = new Gage();
+        gageInLouisThought.die();
+        var coffin = new Coffin();
+        coffin.setState(Coffin.State.Open);
+        coffin.fill(gageInLouisThought);
+
+        louisThought.getLocation().addObject(coffin);
+        for (var p: peopleInLouisThought) {
+            louisThought.addCharacter(p);
+        }
+
+        if (coffin.getState().equals(Coffin.State.Open)) {
+            for (var p: peopleInLouisThought) {
+                p.addNewMood(ActionMood.Screaming);
+                p.goOutOfLocation();
+            }
+        }
+
+        mainLouis.thinkOfAScene(louisThought);
+
 
         var mainSteve = new Steve();
         var syringe = new Syringe();
@@ -153,5 +183,10 @@ public class Main {
 
         mainSteve.askChangePosition(mainJud, Location.Position.Side);
 
+        mainLouis.goOutOfLocation();
+
+        if (((Preparations) ceremonyPreparations.getLocation()).isCompleted()) {
+            ceremonyPreparations.addCharacter(mainLouis);
+        }
     }
 }

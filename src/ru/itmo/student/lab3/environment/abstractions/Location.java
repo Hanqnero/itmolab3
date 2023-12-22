@@ -14,7 +14,7 @@ public class Location {
         return type;
     }
 
-    public enum Type { Default, Ceremony}
+    public enum Type { Default, Ceremony }
 
     public Location(Type t) {
         type = t;
@@ -26,12 +26,24 @@ public class Location {
     private final Type type;
     protected LinkedList<Furniture> objects;
 
+    public LinkedList<Furniture> getObjects() {
+        return new LinkedList<>(objects);
+    }
+
     private boolean isPresent(Person p) {
         var allCharacters = new LinkedList<Person>();
         allCharacters.addAll(characters);
         allCharacters.addAll(charactersCenter);
         allCharacters.addAll(charactersSide);
         return allCharacters.contains(p);
+    }
+
+    public LinkedList<Person> getCharacters() {
+        var allCharacters = new LinkedList<Person>();
+        allCharacters.addAll(characters);
+        allCharacters.addAll(charactersCenter);
+        allCharacters.addAll(charactersSide);
+        return allCharacters;
     }
 
     private boolean isPresent(Person p, Position pos) {

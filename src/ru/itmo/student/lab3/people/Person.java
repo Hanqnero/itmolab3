@@ -12,7 +12,6 @@ public abstract class Person {
 
     private Scene currentScene;
     private Location currentLocation;
-    private Location.Position locationPosition = Location.Position.Unspecified;
     private Set<ActionMood> currentMoods;
 
     public Person(String name) {
