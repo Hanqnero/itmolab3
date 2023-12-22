@@ -15,6 +15,7 @@ public class Scene {
 
     public void addCharacter(Person p) {
         this.getLocation().addCharacter(p);
+        p.setCurrentScene(this);
     }
     public void removeCharacter(Person p) {
         this.getLocation().removeCharacter(p);

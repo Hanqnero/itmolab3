@@ -24,7 +24,7 @@ public class Location {
     private LinkedList<Person> charactersCenter = new LinkedList<>();;
     private LinkedList<Person> charactersSide = new LinkedList<>();
     private final Type type;
-    protected LinkedList<Furniture> objects;
+    protected LinkedList<Furniture> objects = new LinkedList<>();
 
     public LinkedList<Furniture> getObjects() {
         return new LinkedList<>(objects);
@@ -65,7 +65,11 @@ public class Location {
     }
 
     public void addCharacter(Person p) {
-        if (!isPresent(p)) characters.add(p);
+        if (!isPresent(p)) {
+            characters.add(p);
+            p.setCurrentLocation(this);
+        }
+
     }
     public void addCharacter(Person p, Position pos) {
        if (!isPresent(p)) {
@@ -74,6 +78,7 @@ public class Location {
                case Center      -> charactersCenter.add(p);
                case Side        -> charactersSide.add(p);
            }
+           p.setCurrentLocation(this);
        }
     }
 

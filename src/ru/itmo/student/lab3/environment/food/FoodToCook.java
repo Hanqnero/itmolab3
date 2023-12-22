@@ -1,7 +1,7 @@
 package ru.itmo.student.lab3.environment.food;
 
 public abstract class FoodToCook extends Food{
-    private CookedDegree cookedDegree;
+    private CookedDegree cookedDegree = CookedDegree.Raw;
     protected FoodToCook(int saturationChange, Taste taste) {
         super(saturationChange, taste);
     }

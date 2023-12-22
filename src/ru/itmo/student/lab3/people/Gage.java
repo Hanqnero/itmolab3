@@ -12,7 +12,7 @@ import java.util.LinkedList;
 public class Gage extends Person implements
         HasFavoriteFood,CanWearClothes,CanRide,HasFaceExpression,CanBeDead {
     private final Food favoriteFood;
-    private LinkedList<Clothes> currentClothes;
+    private LinkedList<Clothes> currentClothes = new LinkedList<>();
 
     public Gage(Food favoriteFood) {
         super("Gage");

@@ -6,7 +6,7 @@ import ru.itmo.student.lab3.people.Person;
 import java.util.LinkedList;
 
 public class Sledge implements CanBeRidden {
-    private LinkedList<CanRide> riddenBy;
+    private LinkedList<CanRide> riddenBy = new LinkedList<>();
     @Override
     public void whenRidden(CanRide rider) {
         if(!(riddenBy.contains(rider))) {

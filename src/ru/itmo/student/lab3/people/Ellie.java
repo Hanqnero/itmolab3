@@ -10,13 +10,13 @@ import java.util.LinkedList;
 
 public class Ellie extends Person implements
         CanWearClothes,CanConsumeFood,CanRide,HasFaceExpression,HasMedicalCondition,HasDislikedItems{
-    private LinkedList<Clothes> currentClothes;
+    private LinkedList<Clothes> currentClothes = new LinkedList<>();
     private int saturation;
     private CanBeHeld itemHeld;
     private int medicalCondition = 200;
     private CanBeRidden currentlyRides;
     private FaceExpression faceExpression;
-    private LinkedList<Object> dislikedItems;
+    private LinkedList<Object> dislikedItems = new LinkedList<>();
 
     public Ellie() { super("Ellie"); }
 

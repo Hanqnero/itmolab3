@@ -11,12 +11,12 @@ import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.LinkedList;
 
-import static ru.itmo.student.lab3.environment.abstractions.TimeStamp.Type.Regular;
 
 public class Main {
     public static void main(String[] args) {
         Scene mainScene = new Scene();
         mainScene.setLocation(new Location(Location.Type.Default));
+        mainScene.setTimestamp(new TimeStamp(TimeStamp.Type.Regular, Instant.parse("2000-01-01T09:00:00.00Z"), TimeStamp.SpecialType.None));
         var mainLouis = new Louis();
         mainScene.addCharacter(mainLouis);
 
@@ -64,8 +64,8 @@ public class Main {
 
 
         var photoScene = new Scene();
+        photoScene.setLocation(new Location(Location.Type.Default));
         photoScene.setTimestamp(new TimeStamp(TimeStamp.Type.Special, Instant.parse("1970-01-01T12:00:00Z"), TimeStamp.SpecialType.EllieBirthday));
-
 
         var gageInPhoto = new Gage();
         var ellieInPhoto = new Ellie();
@@ -90,6 +90,7 @@ public class Main {
         mainEllie.hold(photo);
 
         var tragedyScene = new Scene();
+        tragedyScene.setLocation(new Location(Location.Type.Default));
         var gageInTragedy = new Gage();
         var othersInTragedy = new Person[] {new Louis(), new Ellie(), new Rachel()};
         tragedyScene.addCharacter(gageInTragedy);
@@ -115,6 +116,7 @@ public class Main {
 
         var gageInLouisThought = new Gage();
         gageInLouisThought.die();
+        louisThought.addCharacter(gageInLouisThought);
         var coffin = new Coffin();
         coffin.setState(Coffin.State.Open);
         coffin.fill(gageInLouisThought);
@@ -146,7 +148,7 @@ public class Main {
         mainSteve.giveMedicine(mainEllie, new TakenInternallyMedicine(30, Color.Colorless));
         mainEllie.removeMood(ActionMood.WithoutComplains);
 
-        mainScene.setTimestamp(new TimeStamp(Regular, Instant.parse("T10:00:00Z"), TimeStamp.SpecialType.None));
+        mainScene.setTimestamp(new TimeStamp(TimeStamp.Type.Regular, Instant.parse("1970-01-01T10:00:00.00Z"), TimeStamp.SpecialType.None));
         mainEllie.sleep();
 
         var tv = new TV();
@@ -166,6 +168,7 @@ public class Main {
 
         var mainJud = new Jud();
         var ceremonyPreparations = new Scene();
+        ceremonyPreparations.setLocation(new Location(Location.Type.Ceremony));
         ceremonyPreparations.addCharacter(mainJud);
         ceremonyPreparations.setLocation(new Preparations(Location.Type.Ceremony));
         mainJud.takePartIn((Preparations) ceremonyPreparations.getLocation(), .1f);
@@ -178,7 +181,7 @@ public class Main {
 
         assert judAtWifeFuneral.getCurrentMoods().contains(ActionMood.Calm) == mainJud.getCurrentMoods().contains(ActionMood.Calm) : "Он был так же спокоен, как и на похоронах своей жены три месяца назад";
 
-        var threeMonthsAgo = mainScene.getTimestamp().date().minus(3, ChronoUnit.MONTHS);
+        var threeMonthsAgo = mainScene.getTimestamp().date().minus(90L, ChronoUnit.DAYS);
         judWifeFuneral.setTimestamp(new TimeStamp(TimeStamp.Type.Special, threeMonthsAgo, TimeStamp.SpecialType.Funeral));
 
         mainSteve.askChangePosition(mainJud, Location.Position.Side);

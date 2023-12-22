@@ -18,7 +18,7 @@ public class Louis extends Person implements
         CanConsumeFood,CanHaveDesires,CanWearClothes,HasDislikedItems {
     private int saturation = 0;
     private Desire currentDesire;
-    private LinkedList<Clothes> currentClothes;
+    private LinkedList<Clothes> currentClothes = new LinkedList<>();
     private HairLength faceHairLength;
     private HairStyle hairStyle = HairStyle.Messy;
     private Scene currentlyThinkingOf;
@@ -122,7 +122,7 @@ public class Louis extends Person implements
         this.hairStyle = hs;
     }
 
-    private LinkedList<Object> dislikedItems;
+    private LinkedList<Object> dislikedItems = new LinkedList<>();
     @Override
     public LinkedList<Object> getDislikedItems() {
         return (LinkedList<Object>)this.dislikedItems.clone();

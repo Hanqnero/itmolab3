@@ -4,6 +4,7 @@ import ru.itmo.student.lab3.environment.abstractions.Scene;
 import ru.itmo.student.lab3.environment.abstractions.Location;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Set;
 
@@ -12,7 +13,7 @@ public abstract class Person {
 
     private Scene currentScene;
     private Location currentLocation;
-    private Set<ActionMood> currentMoods;
+    private HashSet<ActionMood> currentMoods = new HashSet<>();
 
     public Person(String name) {
         this.name = name;
@@ -44,5 +45,9 @@ public abstract class Person {
     }
     public void removeMood(ActionMood mood) {
         currentMoods.remove(mood);
+    }
+
+    public void setCurrentLocation(Location currentLocation) {
+        this.currentLocation = currentLocation;
     }
 }
