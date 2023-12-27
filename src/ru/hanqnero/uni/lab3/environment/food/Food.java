@@ -1,6 +1,16 @@
 package ru.hanqnero.uni.lab3.environment.food;
 
-public abstract class Food {
+import ru.hanqnero.uni.lab3.orm.bindings.HasUUID;
+
+import java.util.UUID;
+
+public abstract class Food implements HasUUID {
+
+    private final UUID id = UUID.randomUUID();
+
+    public String getID() {
+        return id.toString();
+    }
 
     private final int saturationChange;
     private final Taste taste;

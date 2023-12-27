@@ -95,6 +95,11 @@ public class Ellie extends Person implements
     }
 
     @Override
+    public CanBeRidden getCurrentlyRides() {
+        return currentlyRides;
+    }
+
+    @Override
     public void stopRiding() {
         if (isRiding()) {
             currentlyRides.whenStoppedRiding(this);

@@ -1,8 +1,11 @@
 package ru.hanqnero.uni.lab3.environment.abstractions;
 
+import ru.hanqnero.uni.lab3.orm.bindings.HasUUID;
 import ru.hanqnero.uni.lab3.people.Person;
 
-public class Scene {
+import java.util.UUID;
+
+public class Scene implements HasUUID {
     private Location location;
     private TimeStamp timestamp;
     public Location getLocation() {
@@ -26,5 +29,11 @@ public class Scene {
 
     public TimeStamp getTimestamp() {
         return timestamp;
+    }
+
+    private final UUID id = UUID.randomUUID();
+    @Override
+    public String getID() {
+        return id.toString();
     }
 }

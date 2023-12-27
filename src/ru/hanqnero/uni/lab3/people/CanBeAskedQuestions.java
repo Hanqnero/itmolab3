@@ -5,4 +5,7 @@ import ru.hanqnero.uni.lab3.environment.abstractions.Question;
 public interface CanBeAskedQuestions {
     void whenAskedQuestion(Question q);
     double getAnsweringSpeed();
+
+    int getAvailableBrainPower();
+    void setAvailableBrainPower(int power);
 }

@@ -6,4 +6,6 @@ public interface CanRide {
     void ride(CanBeRidden obj);
     void stopRiding();
     boolean isRiding();
+
+    CanBeRidden getCurrentlyRides();
 }

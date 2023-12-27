@@ -1,13 +1,20 @@
 package ru.hanqnero.uni.lab3.people;
 
+import ru.hanqnero.uni.ORM.Entity;
 import ru.hanqnero.uni.lab3.environment.abstractions.Scene;
 import ru.hanqnero.uni.lab3.environment.abstractions.Location;
 
 import java.util.HashSet;
+import java.util.HexFormat;
 import java.util.Set;
+import java.util.UUID;
 
+@Entity(tableName="people", primaryKey = "id")
 public abstract class Person {
+
+    private final UUID id = UUID.randomUUID();
     protected final String name;
+    public String getName() { return name; };
 
     private Scene currentScene;
     private Location currentLocation;
@@ -47,5 +54,9 @@ public abstract class Person {
 
     public void setCurrentLocation(Location currentLocation) {
         this.currentLocation = currentLocation;
+    }
+
+    public String getId() {
+        return id.toString();
     }
 }

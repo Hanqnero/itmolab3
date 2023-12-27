@@ -1,13 +1,22 @@
 package ru.hanqnero.uni.lab3.environment.abstractions;
 
+import ru.hanqnero.uni.lab3.orm.bindings.HasUUID;
 import ru.hanqnero.uni.lab3.people.Person;
 import ru.hanqnero.uni.lab3.environment.Furniture;
 
 import java.util.LinkedList;
+import java.util.UUID;
 
-public class Location {
+public class Location implements HasUUID {
     public Type getType() {
         return type;
+    }
+
+    private final UUID id = UUID.randomUUID();
+
+    @Override
+    public String getID() {
+        return id.toString();
     }
 
     public enum Type { Default, Ceremony }
@@ -26,7 +35,7 @@ public class Location {
         return new LinkedList<>(objects);
     }
 
-    private boolean isPresent(Person p) {
+    public boolean isPresent(Person p) {
         var allCharacters = new LinkedList<Person>();
         allCharacters.addAll(characters);
         allCharacters.addAll(charactersCenter);
@@ -42,7 +51,7 @@ public class Location {
         return allCharacters;
     }
 
-    private boolean isPresent(Person p, Position pos) {
+    public boolean isPresent(Person p, Position pos) {
         switch (pos) {
             case Unspecified -> {
                 return characters.contains(p);

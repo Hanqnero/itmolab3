@@ -71,7 +71,12 @@ public class Gage extends Person implements
 
     @Override
     public boolean isRiding() {
-        return false;
+        return currentlyRides == null;
+    }
+
+    @Override
+    public CanBeRidden getCurrentlyRides() {
+        return currentlyRides;
     }
 
     private FaceExpression faceExpression;
