@@ -17,7 +17,7 @@ public enum Table {
 
     private final String table;
 
-    private Table(String t) {
+    Table(String t) {
         table = t;
     }
     @Override

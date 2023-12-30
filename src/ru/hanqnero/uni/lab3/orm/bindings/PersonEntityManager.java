@@ -8,7 +8,6 @@ import ru.hanqnero.uni.lab3.environment.abstractions.Location;
 import ru.hanqnero.uni.lab3.environment.food.Food;
 import ru.hanqnero.uni.lab3.people.*;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.*;
@@ -282,7 +281,7 @@ public class PersonEntityManager extends EntityManager<Person>{
                 return;
             }
             if (entity instanceof CanWearClothes e) {
-                var removeClothesCommand = "UPDATE * SET \"personUUID\" = NULL WHERE \"personUUID\" = '%s';".formatted(
+                var removeClothesCommand = "UPDATE %s SET \"personUUID\" = NULL WHERE \"personUUID\" = '%s';".formatted(
                         Table.CLOTHES, entity.getID()
                 );
                 connection.prepareStatement(removeClothesCommand).execute();
@@ -331,17 +330,12 @@ public class PersonEntityManager extends EntityManager<Person>{
 
     @Override
     public void delete(Person entity) {
-        delete(entity, true);
-    }
-
-    protected void delete(Person entity, boolean recursive) {
         String deleteQuery     = "DELETE FROM %s WHERE uuid = '%s';";
         String childUUIDsQuery = "SELECT favoriteFoodUUID, desireObjUUID, ridingObjUUID FROM %s WHERE uuid = '%s';";
         String deleteClothesQuery = "DELETE FROM %s WHERE \"personUUID\" = '%s';";
         try {
             var statement = connection.createStatement();
             statement.execute(deleteQuery.formatted(Table.PEOPLE, entity.getID()));
-            if (!recursive) return;
 
             var deleteChildStatement = connection.createStatement();
             statement.execute(deleteClothesQuery);

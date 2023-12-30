@@ -6,7 +6,6 @@ import ru.hanqnero.uni.lab3.people.CanWearClothes;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.HashMap;
 
 public class ClothesEntityManager extends EntityManager<Clothes> {

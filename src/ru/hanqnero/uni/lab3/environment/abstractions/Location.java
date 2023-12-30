@@ -26,7 +26,7 @@ public class Location implements HasUUID {
     }
 
     private LinkedList<Person> characters = new LinkedList<>();
-    private LinkedList<Person> charactersCenter = new LinkedList<>();;
+    private LinkedList<Person> charactersCenter = new LinkedList<>();
     private LinkedList<Person> charactersSide = new LinkedList<>();
     private final Type type;
     protected LinkedList<Furniture> objects = new LinkedList<>();

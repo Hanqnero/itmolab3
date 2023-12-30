@@ -17,7 +17,7 @@ public abstract class Person implements HasUUID {
     }
 
     protected final String name;
-    public String getName() { return name; };
+    public String getName() { return name; }
 
     private Scene currentScene;
     private Location currentLocation;
