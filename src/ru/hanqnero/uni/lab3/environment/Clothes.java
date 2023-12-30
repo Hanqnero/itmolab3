@@ -1,12 +1,23 @@
 package ru.hanqnero.uni.lab3.environment;
 
-public class Clothes {
+import ru.hanqnero.uni.lab3.orm.bindings.HasUUID;
+
+import java.util.UUID;
+
+public class Clothes implements HasUUID {
+    private final UUID id = UUID.randomUUID();
+
     public Color getColor() {
         return this.color;
     }
 
     public ClothingType getType() {
         return this.type;
+    }
+
+    @Override
+    public String getID() {
+        return id.toString();
     }
 
     public enum ClothingType {

@@ -2,6 +2,8 @@ package ru.hanqnero.uni.lab3.environment.food;
 
 import ru.hanqnero.uni.lab3.environment.Temperature;
 
+import java.util.HashMap;
+
 public class HotChocolate extends FoodToCook implements HasTemperature {
     private Temperature temp;
 

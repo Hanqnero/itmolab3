@@ -13,6 +13,9 @@ public class Gage extends Person implements
         HasFavoriteFood,CanWearClothes,CanRide,HasFaceExpression,CanBeDead {
     private final Food favoriteFood;
     private LinkedList<Clothes> currentClothes = new LinkedList<>();
+    private CanBeRidden currentlyRides;
+    private FaceExpression faceExpression;
+    private LifeStatus lifeStatus = LifeStatus.Alive;
 
     public Gage(Food favoriteFood) {
         super("Gage");
@@ -51,7 +54,6 @@ public class Gage extends Person implements
         this.currentClothes.remove(item);
     }
 
-    private CanBeRidden currentlyRides;
     @Override
     public void ride(CanBeRidden obj) {
         if (currentlyRides != null) {
@@ -71,7 +73,7 @@ public class Gage extends Person implements
 
     @Override
     public boolean isRiding() {
-        return currentlyRides == null;
+        return currentlyRides != null;
     }
 
     @Override
@@ -79,18 +81,16 @@ public class Gage extends Person implements
         return currentlyRides;
     }
 
-    private FaceExpression faceExpression;
-    @Override
-    public void setFaceExpression(FaceExpression expression) {
-       faceExpression = expression;
-    }
-
     @Override
     public FaceExpression getFaceExpression() {
         return faceExpression;
     }
 
-    private LifeStatus lifeStatus = LifeStatus.Alive;
+    @Override
+    public void setFaceExpression(FaceExpression expression) {
+       faceExpression = expression;
+    }
+
     @Override
     public void die() {
        lifeStatus = LifeStatus.Dead;

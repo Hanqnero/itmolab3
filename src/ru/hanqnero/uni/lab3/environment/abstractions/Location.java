@@ -73,6 +73,9 @@ public class Location implements HasUUID {
         if (!isPresent(p)) {
             characters.add(p);
             p.setCurrentLocation(this);
+//          Flaw in previous implementation could lead to situation where person's saved scene is not related to location,
+//          Which contradicts author's new view of the model and object hierarchy.
+            p.setCurrentScene(null);
         }
 
     }
@@ -84,6 +87,7 @@ public class Location implements HasUUID {
                case Side        -> charactersSide.add(p);
            }
            p.setCurrentLocation(this);
+           p.setCurrentScene(null); // See line 76
        }
     }
 
@@ -91,6 +95,8 @@ public class Location implements HasUUID {
         characters.remove(p);
         charactersSide.remove(p);
         charactersCenter.remove(p);
+        p.setCurrentScene(null); // See line 76
+        p.setCurrentLocation(null);
     }
 
     public void addObject(Furniture f) { this.objects.add(f); }

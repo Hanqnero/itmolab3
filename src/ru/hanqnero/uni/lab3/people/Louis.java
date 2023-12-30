@@ -18,9 +18,11 @@ public class Louis extends Person implements
     private int saturation = 0;
     private Desire currentDesire;
     private LinkedList<Clothes> currentClothes = new LinkedList<>();
-    private HairLength faceHairLength;
+    private HairLength faceHairLength = HairLength.Default;
     private HairStyle hairStyle = HairStyle.Messy;
     private Scene currentlyThinkingOf;
+    private float headAngle = 90f;
+    private LinkedList<Object> dislikedItems = new LinkedList<>();
 
     public Louis() { super("Louis"); }
 
@@ -57,11 +59,10 @@ public class Louis extends Person implements
 
     @Override
     public int getSaturation() { return this.saturation; }
+
     @Override
     public void setSaturation(int s) { this.saturation = s; }
 
-
-    private float headAngle = 90f;
     public void nod(float angle) {
         float MINANGLE = 0f;
         float MAXANGLE = 60f;
@@ -121,7 +122,6 @@ public class Louis extends Person implements
         this.hairStyle = hs;
     }
 
-    private LinkedList<Object> dislikedItems = new LinkedList<>();
     @Override
     public LinkedList<Object> getDislikedItems() {
         return (LinkedList<Object>)this.dislikedItems.clone();
