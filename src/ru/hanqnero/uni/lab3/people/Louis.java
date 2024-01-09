@@ -47,6 +47,7 @@ public class Louis extends Person implements
         }
 
         this.setSaturation(foodSaturation + personSaturation);
+        f.consume();
         }
     }
 

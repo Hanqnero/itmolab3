@@ -52,6 +52,7 @@ public class Ellie extends Person implements
             var personSaturation = this.getSaturation();
 
             this.setSaturation(foodSaturation + personSaturation);
+            f.consume();
         }
     }
 
