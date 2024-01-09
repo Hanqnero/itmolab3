@@ -8,10 +8,6 @@ import ru.hanqnero.uni.lab3.environment.food.Taste;
 import ru.hanqnero.uni.lab3.environment.medicine.Injection;
 import ru.hanqnero.uni.lab3.environment.medicine.TakenInternallyMedicine;
 import ru.hanqnero.uni.lab3.people.*;
-import ru.itmo.student.lab3.environment.*;
-import ru.itmo.student.lab3.environment.abstractions.*;
-import ru.itmo.student.lab3.environment.food.*;
-import ru.itmo.student.lab3.people.*;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
