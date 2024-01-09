@@ -1,7 +1,0 @@
-package ru.itmo.student.lab3.people;
-
-import ru.itmo.student.lab3.environment.abstractions.Location;
-
-public interface AskToChangePosition {
-    void whenAskedToChangePosition(Location.Position pos);
-}
