@@ -16,6 +16,7 @@ public class Scene {
         this.getLocation().addCharacter(p);
         p.setCurrentScene(this);
     }
+    @SuppressWarnings("unused")
     public void removeCharacter(Person p) {
         this.getLocation().removeCharacter(p);
     }

@@ -4,5 +4,6 @@ import ru.hanqnero.uni.lab3.people.Person;
 
 public interface CanBeHeld {
     void whenHeld(Person holder);
+    @SuppressWarnings("unused")
     Person getHolder();
 }

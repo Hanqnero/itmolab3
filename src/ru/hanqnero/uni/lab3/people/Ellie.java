@@ -149,10 +149,12 @@ public class Ellie extends Person implements
     public void sleep() {
        sleepState = SleepingState.Sleeping;
     }
+    @SuppressWarnings("unused")
     public void wakeUp() {
         sleepState = SleepingState.Awake;
     }
 
+    @SuppressWarnings("unused")
     public SleepingState getSleepState() {
         return sleepState;
     }

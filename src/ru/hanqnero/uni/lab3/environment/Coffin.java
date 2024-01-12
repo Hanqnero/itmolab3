@@ -3,7 +3,8 @@ package ru.hanqnero.uni.lab3.environment;
 import ru.hanqnero.uni.lab3.people.Person;
 
 public class Coffin extends Container<Person> implements Furniture {
-    public enum State {Open, Closed};
+    public enum State {Open, Closed}
+
     protected State state = State.Closed;
 
     @Override

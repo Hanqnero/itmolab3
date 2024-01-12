@@ -17,9 +17,9 @@ public class Location {
         type = t;
     }
 
-    private List<Person> characters = new LinkedList<>();
-    private List<Person> charactersCenter = new LinkedList<>();;
-    private List<Person> charactersSide = new LinkedList<>();
+    private final List<Person> characters = new LinkedList<>();
+    private final List<Person> charactersCenter = new LinkedList<>();
+    private final List<Person> charactersSide = new LinkedList<>();
     private final Type type;
     protected List<Furniture> objects = new LinkedList<>();
 
@@ -86,6 +86,7 @@ public class Location {
     }
 
     public void addObject(Furniture f) { this.objects.add(f); }
+    @SuppressWarnings("unused")
     public void removeObject(Furniture f) { this.objects.remove(f); }
 
     public enum Position {

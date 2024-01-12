@@ -15,6 +15,7 @@ public abstract class Food {
     public boolean isConsumed() { return consumed; }
     public void consume() { this.consumed = true; }
 
+    @SuppressWarnings("unused")
     public Taste getTaste() { return taste; }
 
     @Override

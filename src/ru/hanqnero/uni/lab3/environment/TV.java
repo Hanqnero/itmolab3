@@ -8,6 +8,7 @@ public class TV implements Furniture {
 
     public boolean getState() { return this.isOn; }
 
+    @SuppressWarnings("unused")
     public void setState(boolean s) { isOn = s; }
 
     public void whenWatched(CanWatchTV person) {

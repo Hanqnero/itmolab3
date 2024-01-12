@@ -7,6 +7,7 @@ public class Preparations extends Location{
 
     private float completeness = 0f;
 
+    @SuppressWarnings("unused")
     public float getCompleteness() {
         return completeness;
     }

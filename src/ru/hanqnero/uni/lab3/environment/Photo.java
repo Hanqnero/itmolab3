@@ -13,6 +13,7 @@ public class Photo implements CanBeHeld {
         type = t;
     }
 
+    @SuppressWarnings("unused")
     public Type getType() {
         return type;
     }
@@ -27,6 +28,7 @@ public class Photo implements CanBeHeld {
         return this.holder;
     }
 
+    @SuppressWarnings("unused")
     public Scene getPicturedScene() { return picturedScene; }
 
 

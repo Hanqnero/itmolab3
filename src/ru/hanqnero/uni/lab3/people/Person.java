@@ -18,8 +18,6 @@ public abstract class Person {
 
     public Set<ActionMood> getCurrentMoods() { return currentMoods; }
 
-//    public void setCurrentMoods(ActionMood currentMoods) { this.currentMoods = currentMoods; }
-
     public Scene getCurrentScene() {
         return this.currentScene;
     }
@@ -30,6 +28,7 @@ public abstract class Person {
     }
 
     private float speechLoudness = 100f;
+    @SuppressWarnings("unused")
     public float getSpeechLoudness() {return speechLoudness;}
     public void doMoodAction(ActionMood mood) {
         switch (mood) {

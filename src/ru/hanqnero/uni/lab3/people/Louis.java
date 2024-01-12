@@ -3,7 +3,6 @@ package ru.hanqnero.uni.lab3.people;
 import ru.hanqnero.uni.lab3.environment.Clothes;
 import ru.hanqnero.uni.lab3.environment.Container;
 import ru.hanqnero.uni.lab3.environment.food.cooking.Stove;
-import ru.hanqnero.uni.lab3.environment.abstractions.Desire;
 import ru.hanqnero.uni.lab3.environment.food.Food;
 import ru.hanqnero.uni.lab3.environment.food.FoodToCook;
 import ru.hanqnero.uni.lab3.environment.abstractions.Scene;
@@ -24,6 +23,7 @@ public class Louis extends Person implements
     private List<Clothes> currentClothes = new LinkedList<>();
     private HairLength faceHairLength;
     private HairStyle hairStyle = HairStyle.Messy;
+    @SuppressWarnings("unused")
     private Scene currentlyThinkingOf;
 
     public Louis() { super();}
@@ -70,6 +70,7 @@ public class Louis extends Person implements
     public void setSaturation(int s) { this.saturation = s; }
 
 
+    @SuppressWarnings("unused")
     private float headAngle = 90f;
     public void nod(float angle) {
         float MINANGLE = 0f;
@@ -118,10 +119,13 @@ public class Louis extends Person implements
         this.faceHairLength = HairLength.Short;
     }
 
+
+    @SuppressWarnings("unused")
     public HairLength getFaceHairLength() {
         return faceHairLength;
     }
 
+    @SuppressWarnings("unused")
     public HairStyle getHairStyle() {
         return hairStyle;
     }
