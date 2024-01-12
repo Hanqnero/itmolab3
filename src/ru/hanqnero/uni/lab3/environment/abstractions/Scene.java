@@ -12,7 +12,7 @@ public class Scene {
         this.location = l;
     }
 
-    public void addCharacter(Person p) {
+    public void addCharacter(Person p) {    // TODO
         this.getLocation().addCharacter(p);
         p.setCurrentScene(this);
     }

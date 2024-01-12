@@ -1,6 +1,6 @@
-package ru.hanqnero.uni.lab3.environment;
+package ru.hanqnero.uni.lab3.environment.riding;
 
-import ru.hanqnero.uni.lab3.people.CanRide;
+import ru.hanqnero.uni.lab3.people.interfaces.CanRide;
 
 public interface CanBeRidden {
     void whenRidden(CanRide rider);

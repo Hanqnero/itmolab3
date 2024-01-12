@@ -1,6 +1,7 @@
 package ru.hanqnero.uni.lab3.environment;
 
 import ru.hanqnero.uni.lab3.environment.food.Food;
+import ru.hanqnero.uni.lab3.environment.properties.Temperature;
 
 public class Cup extends Container<Food> {
 

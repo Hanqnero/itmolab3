@@ -1,18 +1,22 @@
 package ru.hanqnero.uni.lab3.people;
 
-import ru.hanqnero.uni.lab3.environment.CanBeRidden;
+import ru.hanqnero.uni.lab3.environment.riding.CanBeRidden;
 import ru.hanqnero.uni.lab3.environment.Clothes;
-import ru.hanqnero.uni.lab3.environment.Temperature;
+import ru.hanqnero.uni.lab3.environment.properties.Temperature;
 import ru.hanqnero.uni.lab3.environment.food.Food;
 import ru.hanqnero.uni.lab3.environment.food.HotChocolate;
 import ru.hanqnero.uni.lab3.environment.food.Taste;
+import ru.hanqnero.uni.lab3.people.interfaces.*;
+import ru.hanqnero.uni.lab3.people.properties.FaceExpression;
+import ru.hanqnero.uni.lab3.people.properties.LifeStatus;
 
 import java.util.LinkedList;
+import java.util.List;
 
 public class Gage extends Person implements
-        HasFavoriteFood,CanWearClothes,CanRide,HasFaceExpression,CanBeDead {
+        HasFavoriteFood, CanWearClothes, CanRide, HasFaceExpression, CanBeDead {
     private final Food favoriteFood;
-    private LinkedList<Clothes> currentClothes = new LinkedList<>();
+    private List<Clothes> currentClothes = new LinkedList<>();
 
     public Gage(Food favoriteFood) {
         super();
@@ -33,12 +37,12 @@ public class Gage extends Person implements
     }
 
     @Override
-    public LinkedList<Clothes> getCurrentClothes() {
-        return (LinkedList<Clothes>) this.currentClothes.clone();
+    public List<Clothes> getCurrentClothes() {
+        return new LinkedList<>(currentClothes);
     }
 
     @Override
-    public void setCurrentClothes(LinkedList<Clothes> c) {
+    public void setCurrentClothes(List<Clothes> c) {
         this.currentClothes = c;
     }
 

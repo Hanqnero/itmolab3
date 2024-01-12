@@ -1,4 +1,4 @@
-package ru.hanqnero.uni.lab3.people;
+package ru.hanqnero.uni.lab3.people.properties;
 
 public enum DesireType {
     Drink,

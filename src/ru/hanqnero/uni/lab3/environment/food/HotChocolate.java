@@ -1,6 +1,6 @@
 package ru.hanqnero.uni.lab3.environment.food;
 
-import ru.hanqnero.uni.lab3.environment.Temperature;
+import ru.hanqnero.uni.lab3.environment.properties.Temperature;
 
 public class HotChocolate extends FoodToCook implements HasTemperature {
     private Temperature temp;

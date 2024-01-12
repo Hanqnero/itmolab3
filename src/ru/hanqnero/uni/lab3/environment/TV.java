@@ -1,6 +1,6 @@
 package ru.hanqnero.uni.lab3.environment;
 
-import ru.hanqnero.uni.lab3.people.CanWatchTV;
+import ru.hanqnero.uni.lab3.people.interfaces.CanWatchTV;
 
 public class TV implements Furniture {
     protected boolean isOn;

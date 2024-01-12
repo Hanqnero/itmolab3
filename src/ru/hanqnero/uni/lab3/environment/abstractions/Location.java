@@ -4,6 +4,7 @@ import ru.hanqnero.uni.lab3.environment.Furniture;
 import ru.hanqnero.uni.lab3.people.Person;
 
 import java.util.LinkedList;
+import java.util.List;
 
 public class Location {
     public Type getType() {
@@ -16,13 +17,13 @@ public class Location {
         type = t;
     }
 
-    private LinkedList<Person> characters = new LinkedList<>();
-    private LinkedList<Person> charactersCenter = new LinkedList<>();;
-    private LinkedList<Person> charactersSide = new LinkedList<>();
+    private List<Person> characters = new LinkedList<>();
+    private List<Person> charactersCenter = new LinkedList<>();;
+    private List<Person> charactersSide = new LinkedList<>();
     private final Type type;
-    protected LinkedList<Furniture> objects = new LinkedList<>();
+    protected List<Furniture> objects = new LinkedList<>();
 
-    public LinkedList<Furniture> getObjects() {
+    public List<Furniture> getObjects() {
         return new LinkedList<>(objects);
     }
 
@@ -34,7 +35,7 @@ public class Location {
         return allCharacters.contains(p);
     }
 
-    public LinkedList<Person> getCharacters() {
+    public List<Person> getCharacters() {
         var allCharacters = new LinkedList<Person>();
         allCharacters.addAll(characters);
         allCharacters.addAll(charactersCenter);

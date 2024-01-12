@@ -1,12 +1,13 @@
-package ru.hanqnero.uni.lab3.people;
+package ru.hanqnero.uni.lab3.people.interfaces;
 
 import ru.hanqnero.uni.lab3.environment.Clothes;
 
 import java.util.LinkedList;
+import java.util.List;
 
 public interface CanWearClothes {
-    LinkedList<Clothes> getCurrentClothes();
-    void setCurrentClothes(LinkedList<Clothes> c);
+    List<Clothes> getCurrentClothes();
+    void setCurrentClothes(List<Clothes> c);
     void addClothingItem(Clothes item);
     void removeClothingItem(Clothes item);
 

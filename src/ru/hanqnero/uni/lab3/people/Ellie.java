@@ -1,22 +1,25 @@
 package ru.hanqnero.uni.lab3.people;
 
 import ru.hanqnero.uni.lab3.environment.CanBeHeld;
-import ru.hanqnero.uni.lab3.environment.CanBeRidden;
+import ru.hanqnero.uni.lab3.environment.riding.CanBeRidden;
 import ru.hanqnero.uni.lab3.environment.Clothes;
 import ru.hanqnero.uni.lab3.environment.Container;
 import ru.hanqnero.uni.lab3.environment.food.Food;
+import ru.hanqnero.uni.lab3.people.interfaces.*;
+import ru.hanqnero.uni.lab3.people.properties.FaceExpression;
 
 import java.util.LinkedList;
+import java.util.List;
 
 public class Ellie extends Person implements
-        CanWearClothes,CanConsumeFood,CanRide,HasFaceExpression,HasMedicalCondition,HasDislikedItems{
-    private LinkedList<Clothes> currentClothes = new LinkedList<>();
+        CanWearClothes, CanConsumeFood, CanRide, HasFaceExpression,HasMedicalCondition, HasDislikedItems {
+    private List<Clothes> currentClothes = new LinkedList<>();
     private int saturation;
     private CanBeHeld itemHeld;
     private int medicalCondition = 200;
     private CanBeRidden currentlyRides;
     private FaceExpression faceExpression;
-    private final LinkedList<Object> dislikedItems = new LinkedList<>();
+    private final List<Object> dislikedItems = new LinkedList<>();
 
     public Ellie() { super(); }
 
@@ -24,12 +27,11 @@ public class Ellie extends Person implements
     public String getName() {return "Ellie";}
 
     @Override
-    public LinkedList<Clothes> getCurrentClothes() {
-        return (LinkedList<Clothes>) this.currentClothes.clone();
+    public List<Clothes> getCurrentClothes() {
+        return new LinkedList<>(currentClothes);
     }
 
-    @Override
-    public void setCurrentClothes(LinkedList<Clothes> c) {
+    public void setCurrentClothes(List<Clothes> c) {
         this.currentClothes = c;
     }
 
@@ -126,7 +128,7 @@ public class Ellie extends Person implements
     }
 
     @Override
-    public LinkedList<Object> getDislikedItems() {
+    public List<Object> getDislikedItems() {
         return dislikedItems;
     }
 

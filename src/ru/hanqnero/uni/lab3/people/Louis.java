@@ -2,22 +2,26 @@ package ru.hanqnero.uni.lab3.people;
 
 import ru.hanqnero.uni.lab3.environment.Clothes;
 import ru.hanqnero.uni.lab3.environment.Container;
-import ru.hanqnero.uni.lab3.environment.Stove;
+import ru.hanqnero.uni.lab3.environment.food.cooking.Stove;
 import ru.hanqnero.uni.lab3.environment.abstractions.Desire;
 import ru.hanqnero.uni.lab3.environment.food.Food;
 import ru.hanqnero.uni.lab3.environment.food.FoodToCook;
 import ru.hanqnero.uni.lab3.environment.abstractions.Scene;
+import ru.hanqnero.uni.lab3.people.interfaces.*;
+import ru.hanqnero.uni.lab3.people.properties.HairLength;
+import ru.hanqnero.uni.lab3.people.properties.HairStyle;
 
 import java.util.LinkedList;
+import java.util.List;
 
 import static java.lang.Float.max;
 import static java.lang.Float.min;
 
 public class Louis extends Person implements
-        CanConsumeFood,CanHaveDesires,CanWearClothes,HasDislikedItems {
+        CanConsumeFood, CanHaveDesires, CanWearClothes, HasDislikedItems {
     private int saturation = 0;
     private Desire currentDesire;
-    private LinkedList<Clothes> currentClothes = new LinkedList<>();
+    private List<Clothes> currentClothes = new LinkedList<>();
     private HairLength faceHairLength;
     private HairStyle hairStyle = HairStyle.Messy;
     private Scene currentlyThinkingOf;
@@ -89,12 +93,12 @@ public class Louis extends Person implements
     }
 
     @Override
-    public LinkedList<Clothes> getCurrentClothes() {
-        return (LinkedList<Clothes>) this.currentClothes.clone();
+    public List<Clothes> getCurrentClothes() {
+        return new LinkedList<>(currentClothes);
     }
 
     @Override
-    public void setCurrentClothes(LinkedList<Clothes> c) {
+    public void setCurrentClothes(List<Clothes> c) {
         this.currentClothes = c;
     }
 
@@ -126,10 +130,10 @@ public class Louis extends Person implements
         this.hairStyle = hs;
     }
 
-    private LinkedList<Object> dislikedItems = new LinkedList<>();
+    private final List<Object> dislikedItems = new LinkedList<>();
     @Override
-    public LinkedList<Object> getDislikedItems() {
-        return (LinkedList<Object>)this.dislikedItems.clone();
+    public List<Object> getDislikedItems() {
+        return new LinkedList<>(dislikedItems);
     }
 
     @Override

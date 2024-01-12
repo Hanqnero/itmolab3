@@ -1,9 +1,12 @@
 package ru.hanqnero.uni.lab3.people;
 
 import ru.hanqnero.uni.lab3.environment.abstractions.Question;
+import ru.hanqnero.uni.lab3.people.interfaces.CanBeAskedQuestions;
+import ru.hanqnero.uni.lab3.people.interfaces.CanWatchTV;
+import ru.hanqnero.uni.lab3.people.interfaces.HasMedicalCondition;
 
 public class Rachel extends Person
-        implements CanBeAskedQuestions,HasMedicalCondition,CanWatchTV{
+        implements CanBeAskedQuestions, HasMedicalCondition, CanWatchTV {
     private int availableBrainPower = 1000;
 
     public Rachel() {

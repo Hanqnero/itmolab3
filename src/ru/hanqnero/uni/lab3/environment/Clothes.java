@@ -1,5 +1,7 @@
 package ru.hanqnero.uni.lab3.environment;
 
+import ru.hanqnero.uni.lab3.environment.properties.Color;
+
 public class Clothes {
     public Color getColor() {
         return this.color;

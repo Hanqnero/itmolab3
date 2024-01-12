@@ -2,6 +2,7 @@ package ru.hanqnero.uni.lab3.people;
 
 import ru.hanqnero.uni.lab3.environment.abstractions.Location;
 import ru.hanqnero.uni.lab3.environment.abstractions.Scene;
+import ru.hanqnero.uni.lab3.people.moods.ActionMood;
 
 import java.util.HashSet;
 import java.util.Set;

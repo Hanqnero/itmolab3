@@ -3,9 +3,10 @@ package ru.hanqnero.uni.lab3.people;
 import ru.hanqnero.uni.lab3.environment.abstractions.Location;
 import ru.hanqnero.uni.lab3.environment.medicine.TakenInternallyMedicine;
 import ru.hanqnero.uni.lab3.environment.abstractions.Question;
+import ru.hanqnero.uni.lab3.people.interfaces.*;
 
 public class Steve extends Person
-        implements CanMakeInjection,CanGiveMedicine{
+        implements CanMakeInjection, CanGiveMedicine {
     public Steve() {
         super();
     }

@@ -5,9 +5,16 @@ import ru.hanqnero.uni.lab3.environment.abstractions.*;
 import ru.hanqnero.uni.lab3.environment.food.Breakfast;
 import ru.hanqnero.uni.lab3.environment.food.HotChocolate;
 import ru.hanqnero.uni.lab3.environment.food.Taste;
+import ru.hanqnero.uni.lab3.environment.food.cooking.Stove;
 import ru.hanqnero.uni.lab3.environment.medicine.Injection;
 import ru.hanqnero.uni.lab3.environment.medicine.TakenInternallyMedicine;
+import ru.hanqnero.uni.lab3.environment.properties.Color;
+import ru.hanqnero.uni.lab3.environment.properties.Temperature;
+import ru.hanqnero.uni.lab3.environment.riding.Sledge;
 import ru.hanqnero.uni.lab3.people.*;
+import ru.hanqnero.uni.lab3.people.moods.ActionMood;
+import ru.hanqnero.uni.lab3.people.properties.FaceExpression;
+import ru.hanqnero.uni.lab3.people.properties.HairStyle;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
@@ -193,5 +200,10 @@ public class Main {
         if (((Preparations) ceremonyPreparations.getLocation()).isCompleted()) {
             ceremonyPreparations.addCharacter(mainLouis);
         }
+
+        //TODO: move to different packages
+        //TODO: make enums capslock
+        //TODO: Furniture interface is empty
+        //TODO: exceptions are to put in separate package
     }
 }

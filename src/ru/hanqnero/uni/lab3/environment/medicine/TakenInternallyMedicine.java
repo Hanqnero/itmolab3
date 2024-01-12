@@ -1,6 +1,6 @@
 package ru.hanqnero.uni.lab3.environment.medicine;
 
-import ru.hanqnero.uni.lab3.environment.Color;
+import ru.hanqnero.uni.lab3.environment.properties.Color;
 
 public class TakenInternallyMedicine extends Medicine{
     private final Color color;

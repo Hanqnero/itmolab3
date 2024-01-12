@@ -2,8 +2,9 @@ package ru.hanqnero.uni.lab3.people;
 
 import ru.hanqnero.uni.lab3.environment.abstractions.Location;
 import ru.hanqnero.uni.lab3.environment.abstractions.Preparations;
+import ru.hanqnero.uni.lab3.people.interfaces.AskToChangePosition;
 
-public class Jud extends Person implements AskToChangePosition{
+public class Jud extends Person implements AskToChangePosition {
     public Jud() {
         super();
     }
