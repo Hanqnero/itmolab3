@@ -26,6 +26,7 @@ public class Cup extends Container<Food> {
         return this.content;
     }
 
+    @SuppressWarnings("unused")
     private void setTemp(Temperature t) {
         this.temp = t;
     }

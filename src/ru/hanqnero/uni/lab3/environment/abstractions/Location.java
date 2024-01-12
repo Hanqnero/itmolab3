@@ -7,6 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Location {
+    @SuppressWarnings("unused")
     public Type getType() {
         return type;
     }
@@ -43,6 +44,7 @@ public class Location {
         return allCharacters;
     }
 
+    @SuppressWarnings("unused")
     private boolean isPresent(Person p, Position pos) {
         switch (pos) {
             case Unspecified -> {

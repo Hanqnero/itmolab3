@@ -82,6 +82,7 @@ public class Ellie extends Person implements
        item.whenHeld(this);
     }
 
+    @SuppressWarnings("unused")
     public CanBeHeld getItemHeld() {
         return this.itemHeld;
     }

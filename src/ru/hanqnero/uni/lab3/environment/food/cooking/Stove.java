@@ -7,6 +7,7 @@ import ru.hanqnero.uni.lab3.environment.properties.Temperature;
 
 public class Stove implements Furniture {
 
+    @SuppressWarnings("unused")
     private Temperature temp;
 
     public void turnOff() {
