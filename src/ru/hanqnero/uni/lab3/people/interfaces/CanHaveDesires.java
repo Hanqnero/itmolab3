@@ -1,8 +1,12 @@
 package ru.hanqnero.uni.lab3.people.interfaces;
 
-import ru.hanqnero.uni.lab3.environment.abstractions.Desire;
-
 public interface CanHaveDesires {
-    public void desire(Desire d);
-    public Desire getCurrentDesire();
+
+    record Desire(DesireType type, Object object) {}
+    enum DesireType { Drink, Sleep, None, }
+
+    @SuppressWarnings("unused")
+    void desire(Desire d);
+    @SuppressWarnings("unused")
+    Desire getCurrentDesire();
 }
