@@ -179,8 +179,35 @@ public class Main {
         var ceremonyPreparations = new Scene();
         ceremonyPreparations.setLocation(new Location(Location.Type.Ceremony));
         ceremonyPreparations.addCharacter(mainJud);
-        ceremonyPreparations.setLocation(new Preparations(Location.Type.Ceremony));
-        mainJud.takePartIn((Preparations) ceremonyPreparations.getLocation(), .1f);
+
+
+        ceremonyPreparations.setLocation(
+        new Location(Location.Type.Ceremony) {
+            private float completeness;
+
+            public boolean isCompleted() {
+                return completeness == 1f;
+            }
+
+            public float getCompleteness() {
+                return completeness;
+            }
+
+            public void workOnCompletion(float amount) {
+                if (!isCompleted()) {
+                    completeness += amount;
+
+                    var MAX = 1f; // Clamp between logically right numbers
+                    var MIN = 0f;
+                    completeness = Math.max(Math.min(completeness, MAX), MIN);
+                }
+            }
+        }
+
+        );
+
+
+        mainJud.takePartIn(ceremonyPreparations.getLocation(), .1f);
 
         mainJud.addNewMood(ActionMood.Calm);
 
@@ -197,7 +224,8 @@ public class Main {
 
         mainLouis.goOutOfLocation();
 
-        if (((Preparations) ceremonyPreparations.getLocation()).isCompleted()) {
+        interface CanBeCompleted {boolean isCompleted();}
+        if (((CanBeCompleted)(ceremonyPreparations.getLocation())).isCompleted()) {
             ceremonyPreparations.addCharacter(mainLouis);
         }
 
