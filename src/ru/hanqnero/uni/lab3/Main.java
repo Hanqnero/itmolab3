@@ -229,9 +229,5 @@ public class Main {
             ceremonyPreparations.addCharacter(mainLouis);
         }
 
-        //TODO: move to different packages
-        //TODO: make enums capslock
-        //TODO: Furniture interface is empty
-        //TODO: exceptions are to put in separate package
     }
 }
