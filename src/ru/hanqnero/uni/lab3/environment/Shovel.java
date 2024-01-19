@@ -26,4 +26,9 @@ public class Shovel implements CanBeHeld, Tool{
     public Location.Ground.Tools getType() {
         return Location.Ground.Tools.SHOVEL;
     }
+
+    @Override
+    public String toString() {
+        return getType().toString();
+    }
 }

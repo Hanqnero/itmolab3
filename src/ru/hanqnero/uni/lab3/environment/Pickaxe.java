@@ -32,6 +32,11 @@ public class Pickaxe implements CanBeHeld, Tool{
         handle.vibrate();
     }
 
+    @Override
+    public String toString() {
+        return getType().toString();
+    }
+
     class Handle {
         public void vibrate() {
             if (holder instanceof HasExhaustion p) {

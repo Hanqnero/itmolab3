@@ -5,5 +5,10 @@ import ru.hanqnero.uni.lab3.environment.abstractions.exceptions.NoToolException;
 import ru.hanqnero.uni.lab3.environment.abstractions.exceptions.WrongToolException;
 
 public interface CanDigSoil extends HasExhaustion {
-   void dig(Ground ground) throws WrongToolException, NoToolException;
+   /**
+    * @return true if successfully mined stone of any type with pickaxe and false otherwise;
+    * @throws WrongToolException thrown when digging requires different tool type
+    * @throws NoToolException thrown when ItemHeld is not type Tool or null
+    */
+   boolean dig(Ground ground) throws WrongToolException, NoToolException;
 }

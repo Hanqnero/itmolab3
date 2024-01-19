@@ -25,7 +25,7 @@ public class Rachel extends Person
     public void whenAskedQuestion(Question q) {
         this.setAvailableBrainPower(this.getAvailableBrainPower()-q.brainPower());
         try {
-            Thread.sleep((long) (q.baseTimeToAnswer()*1000*getAnsweringSpeed()));
+            Thread.sleep((long) (q.baseTimeToAnswer()*10*getAnsweringSpeed()));
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }

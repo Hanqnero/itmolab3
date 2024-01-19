@@ -5,13 +5,13 @@ import ru.hanqnero.uni.lab3.environment.CanBeHeld;
 import ru.hanqnero.uni.lab3.environment.Pickaxe;
 import ru.hanqnero.uni.lab3.environment.Tool;
 import ru.hanqnero.uni.lab3.environment.abstractions.Location;
+import ru.hanqnero.uni.lab3.environment.abstractions.Location.Ground.RockType;
+import ru.hanqnero.uni.lab3.environment.abstractions.Preparations;
 import ru.hanqnero.uni.lab3.environment.abstractions.exceptions.NoToolException;
 import ru.hanqnero.uni.lab3.environment.abstractions.exceptions.WrongToolException;
 import ru.hanqnero.uni.lab3.people.interfaces.AskToChangePosition;
 import ru.hanqnero.uni.lab3.people.interfaces.CanDigSoil;
 import ru.hanqnero.uni.lab3.people.interfaces.CanHoldItems;
-
-import java.util.Arrays;
 
 public class Jud extends Person implements AskToChangePosition, CanDigSoil, CanHoldItems {
     public Jud() {
@@ -21,17 +21,8 @@ public class Jud extends Person implements AskToChangePosition, CanDigSoil, CanH
     public String getName() {return "Jud";}
 
     public void takePartIn(Location p, float amount) {
-        boolean hasMethod = Arrays.stream(p.getClass()
-                .getDeclaredMethods())
-                .filter(
-                        (m) -> m.getName().equals("workOnCompletion")
-                )
-                .count() == 1;
-        if (!hasMethod) return;
-        interface HasCompletion {
-            void workOnCompletion(float amount);
-        }
-        ((HasCompletion)p).workOnCompletion(amount);
+        if (!(p instanceof Preparations prep)) throw new RuntimeException("Can take part in preparing only for preparations.");
+        prep.workOnCompletion(amount);
     }
 
     @Override
@@ -61,20 +52,16 @@ public class Jud extends Person implements AskToChangePosition, CanDigSoil, CanH
     }
 
     @Override
-    public void dig(@NotNull Location.Ground ground) throws WrongToolException, NoToolException {
-            if (!(itemHeld instanceof Tool))
+    public boolean dig(@NotNull Location.Ground ground) throws WrongToolException, NoToolException {
+            if (!(itemHeld instanceof Tool tool))
                 throw new NoToolException();
-            var tool = (Tool) getItemHeld();
 
-            var currentRock = ground.whenDug(tool.getType(), this);
-            if (currentRock.equals(Location.Ground.RockType.TOO_HARD)) {
-                if (itemHeld instanceof Pickaxe pick) {
-                    pick.onMeetingHardStone();
-                }
-            }
+            RockType dugRockType = ground.whenDug(tool, this);
+            if (dugRockType.equals(RockType.TOO_HARD))
+                ((Pickaxe) tool).onMeetingHardStone();
             exhaustion += ground.getSoilToughness() / 10;
+            return dugRockType.compareTo(RockType.NONE) > 0;
     }
-
 
     @Override
     public void setExhaustion(int exhaustion) {

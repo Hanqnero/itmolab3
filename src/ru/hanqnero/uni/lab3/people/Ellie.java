@@ -97,8 +97,8 @@ public class Ellie extends Person implements
     @Override
     public void drop() {
         if (itemHeld == null) return;
-        itemHeld = null;
         itemHeld.whenDropped();
+        itemHeld = null;
     }
 
     @Override

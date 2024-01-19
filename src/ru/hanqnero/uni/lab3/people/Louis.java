@@ -156,7 +156,7 @@ public class Louis extends Person implements
         // Imagining a complex scene more time
         try {
             long sceneComplexity = s.getLocation().getCharacters().size() + s.getLocation().getObjects().size();
-            Thread.sleep(sceneComplexity * 1000L);
+            Thread.sleep(sceneComplexity * 10L);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }

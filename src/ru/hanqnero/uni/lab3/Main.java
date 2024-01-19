@@ -182,26 +182,7 @@ public class Main {
         ceremonyPreparations.addCharacter(mainJud);
 
 
-        ceremonyPreparations.setLocation(
-        new Location(Location.Type.CEREMONY) {
-            private float completeness;
-
-            public boolean isCompleted() {
-                return completeness == 1f;
-            }
-
-            @SuppressWarnings("unused")
-            public void workOnCompletion(float amount) {
-                if (!isCompleted()) {
-                    completeness += amount;
-
-                    var MAX = 1f; // Clamp between logically right numbers
-                    var MIN = 0f;
-                    completeness = Math.max(Math.min(completeness, MAX), MIN);
-                }
-            }
-        }
-        );
+        ceremonyPreparations.setLocation(new Preparations(Location.Type.CEREMONY));
 
         mainJud.takePartIn(ceremonyPreparations.getLocation(), .1f);
 
@@ -220,10 +201,8 @@ public class Main {
 
         mainLouis.goOutOfLocation();
 
-        interface CanBeCompleted {boolean isCompleted();}
-        if (((CanBeCompleted)(ceremonyPreparations.getLocation())).isCompleted()) {
+        if (ceremonyPreparations.getLocation() instanceof Preparations prep && prep.isCompleted())
             ceremonyPreparations.addCharacter(mainLouis);
-        }
 
 
         var diggingScene = new Scene();
@@ -238,23 +217,28 @@ public class Main {
 
         var shovel = new Shovel();
         var pickaxe = new Pickaxe();
-
         diggingJud.pickUp(shovel);
 
-        int rocksDug = 0;
-        while (rocksDug < 10) {
-            try {
-                diggingJud.dig(diggingLocation.getGround());
-            } catch (WrongToolException e) {
-                System.err.printf(("Caught rock while digging or tried to dig soil with pickaxe. " +
-                        "Switching tool to: %s%n"), e.getRequiredTool());
-                diggingJud.pickUp(e.getRequiredTool().equals(Location.Ground.Tools.PICKAXE) ? pickaxe : shovel);
-                rocksDug++;
-                if (diggingJud.getExhaustion() > 50 && Math.random() < 0.4f) {
-                    diggingJud.sweat();
-                }
-            }
-        }
 
+
+        int rocksDug = 0;
+        while (rocksDug < 20) {
+           try {
+               var dugStone = diggingJud.dig(diggingLocation.getGround());
+               if (dugStone) rocksDug++;
+               System.out.printf("Successfully mined %s with %s; current Exhaustion: %d%n", dugStone?"Stone":"Soil", diggingJud.getItemHeld(), diggingJud.getExhaustion());
+           } catch (WrongToolException e) {
+               switch (e.getRequiredTool()) {
+                   case PICKAXE -> {
+                       System.err.printf("Cannot mine stone with %s. Changing tool to %s%n", diggingJud.getItemHeld(), e.getRequiredTool());
+                       diggingJud.pickUp(pickaxe);
+                   }
+                   case SHOVEL -> {
+                       System.err.printf("Cannot dig trough soil with %s, Changing tool to %s%n", diggingJud.getItemHeld(), e.getRequiredTool());
+                       diggingJud.pickUp(shovel);
+                   }
+               }
+           }
+        }
     }
 }

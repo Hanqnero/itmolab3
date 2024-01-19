@@ -1,6 +1,7 @@
 package ru.hanqnero.uni.lab3.environment.abstractions;
 
 import ru.hanqnero.uni.lab3.environment.Furniture;
+import ru.hanqnero.uni.lab3.environment.Tool;
 import ru.hanqnero.uni.lab3.environment.abstractions.exceptions.WrongToolException;
 import ru.hanqnero.uni.lab3.people.Person;
 import ru.hanqnero.uni.lab3.people.interfaces.HasExhaustion;
@@ -19,29 +20,38 @@ public class Location {
         private final int soilToughness;
 
         public enum Tools {HANDS,SPOON,SHOVEL,PICKAXE}
-        private final Tools defaultTool;
+        private Tools requiredToolType;
 
         public Ground(int toughness, SoilType type) {
             soilToughness = Math.max(MIN_TOUGHNESS, Math.min(MAX_TOUGHNESS, toughness));
             this.type = type;
-            defaultTool =
-                soilToughness < 20 ? Tools.HANDS :
-                soilToughness < 40 ? Tools.SPOON :
-                soilToughness < 80 ? Tools.SHOVEL:
-                                     Tools.PICKAXE;
+            updateRequiredTool();
         }
 
         float chanceToFindRock() {
             if (type != SoilType.ROCKY) return 0f;
-            return (float) soilToughness / 75 * 100;
+            return (float) soilToughness / 5 * 3 / 100;
         }
 
         public enum RockType {NONE, NORMAL, TOO_HARD}
         private RockType caughtRock = RockType.NONE;
 
+        private void updateRequiredTool() {
+            if (caughtRock.compareTo(RockType.NONE) > 0) {
+                requiredToolType = Tools.PICKAXE;
+                return;
+            }
+            var toughness = getSoilToughness();
+            requiredToolType =
+                toughness < 20 ? Tools.HANDS :
+                toughness < 40 ? Tools.SPOON :
+                toughness < 80 ? Tools.SHOVEL:
+                                 Tools.PICKAXE;
+        }
+
         private static final double ROCK_DIGGING_TIME_MULTIPLIER = 1.5d;
         private long getDiggingTime() {
-            double time = soilToughness * 100L;
+            double time = soilToughness * 10L;
             if (caughtRock.compareTo(RockType.NONE) > 0) time *= ROCK_DIGGING_TIME_MULTIPLIER;
             return (long) time;
         }
@@ -50,34 +60,43 @@ public class Location {
             return soilToughness;
         }
 
-        public RockType whenDug(Tools usedTool, Person digger) throws WrongToolException {
-            Tools tool = defaultTool;
-            if (caughtRock.compareTo(RockType.NONE) > 0)
-                tool = Tools.PICKAXE;
+        boolean checkIfCanUseTool(Tool tool) {
+            var toolType = tool.getType();
+            if (requiredToolType.equals(Tools.PICKAXE))
+                return toolType.equals(Tools.PICKAXE);
 
-            if (usedTool.compareTo(tool) != 0) {
-                if (tool.equals(Tools.PICKAXE) || usedTool.compareTo(tool) < 0)
-                    throw new WrongToolException(usedTool, tool);
-            }
+            return toolType.compareTo(requiredToolType) >= 0 && !toolType.equals(Tools.PICKAXE);
+        }
 
-            var diggingTime = getDiggingTime();
-            if (digger instanceof HasExhaustion p) {
-                diggingTime += p.getExhaustion();
-                p.setExhaustion(p.getExhaustion() + soilToughness / 10);
-            }
-
+        private void diggingAction(long diggingTime) {
             try {
                 Thread.sleep(diggingTime);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-            var currentRock = caughtRock;
-            if (Math.random() < chanceToFindRock()) {
-                if (Math.random() < 0.20f) caughtRock = RockType.TOO_HARD;
-                else caughtRock = RockType.NORMAL;
-            } else caughtRock = RockType.NONE;
+        }
 
-            return currentRock;
+        private void updateAfterSuccessfulDig() {
+            var r = Math.random();
+            boolean rockOnNextDig = r > chanceToFindRock();
+            if (rockOnNextDig)
+                caughtRock = Math.random() > 0.5f ? RockType.NORMAL : RockType.TOO_HARD;
+            else caughtRock = RockType.NONE;
+            updateRequiredTool();
+        }
+
+        public RockType whenDug(Tool tool, Person digger) throws WrongToolException {
+            if (!checkIfCanUseTool(tool))
+                throw new WrongToolException(tool.getType(), requiredToolType);
+
+            var diggingTime = getDiggingTime();
+            if (digger instanceof HasExhaustion d)
+                diggingTime += d.getExhaustion();
+
+            diggingAction(diggingTime);
+            var dugRockType = caughtRock;
+            updateAfterSuccessfulDig();
+            return dugRockType;
         }
     }
     @SuppressWarnings("unused")
