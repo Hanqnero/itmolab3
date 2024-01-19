@@ -12,7 +12,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Ellie extends Person implements
-        CanWearClothes, CanConsumeFood, CanRide, HasFaceExpression,HasMedicalCondition, HasDislikedItems {
+        CanWearClothes, CanConsumeFood, CanRide, HasFaceExpression,HasMedicalCondition, HasDislikedItems, CanHoldItems {
     private List<Clothes> currentClothes = new LinkedList<>();
     private int saturation;
     private CanBeHeld itemHeld;
@@ -85,6 +85,20 @@ public class Ellie extends Person implements
     @SuppressWarnings("unused")
     public CanBeHeld getItemHeld() {
         return this.itemHeld;
+    }
+
+    @Override
+    public void pickUp(CanBeHeld item) {
+        drop();
+        itemHeld = item;
+        item.whenHeld(this);
+    }
+
+    @Override
+    public void drop() {
+        if (itemHeld == null) return;
+        itemHeld = null;
+        itemHeld.whenDropped();
     }
 
     @Override
