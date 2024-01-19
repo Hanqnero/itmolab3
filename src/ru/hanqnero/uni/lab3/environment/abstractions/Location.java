@@ -1,35 +1,100 @@
 package ru.hanqnero.uni.lab3.environment.abstractions;
 
 import ru.hanqnero.uni.lab3.environment.Furniture;
+import ru.hanqnero.uni.lab3.environment.abstractions.exceptions.WrongToolException;
 import ru.hanqnero.uni.lab3.people.Person;
+import ru.hanqnero.uni.lab3.people.interfaces.HasExhaustion;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Location {
+
+    public static class Ground {
+        public enum SoilType {NORMAL, ROCKY}
+        private final SoilType type;
+
+        private static final int MIN_TOUGHNESS = 0;
+        private static final int MAX_TOUGHNESS = 100;
+        private final int soilToughness;
+
+        public enum Tools {HANDS,SPOON,SHOVEL,PICKAXE}
+        private final Tools defaultTool;
+
+        public Ground(int toughness, SoilType type) {
+            soilToughness = Math.max(MIN_TOUGHNESS, Math.min(MAX_TOUGHNESS, toughness));
+            this.type = type;
+            defaultTool =
+                soilToughness < 20 ? Tools.HANDS :
+                soilToughness < 40 ? Tools.SPOON :
+                soilToughness < 80 ? Tools.SHOVEL:
+                                     Tools.PICKAXE;
+        }
+
+        float chanceToFindRock() {
+            if (type != SoilType.ROCKY) return 0f;
+            return (float) soilToughness / 75 * 100;
+        }
+
+        private boolean caughtRock = false;
+
+        private static final double ROCK_DIGGING_TIME_MULTIPLIER = 1.5d;
+        private long getDiggingTime() {
+            double time = soilToughness * 100L;
+            if (caughtRock) time *= ROCK_DIGGING_TIME_MULTIPLIER;
+            return (long) time;
+        }
+
+        public int getSoilToughness() {
+            return soilToughness;
+        }
+
+        public void whenDug(Tools usedTool, Person digger) throws WrongToolException {
+            Tools tool = defaultTool;
+            if (caughtRock)
+                tool = Tools.PICKAXE;
+
+            if (usedTool.compareTo(defaultTool) != 0)
+                throw new WrongToolException(usedTool, tool);
+
+            var diggingTime = getDiggingTime();
+            if (digger instanceof HasExhaustion p) {
+                diggingTime += p.getExhaustion();
+                p.setExhaustion(p.getExhaustion() + soilToughness / 10);
+            }
+
+            try {
+                Thread.sleep(diggingTime);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+
+            caughtRock = Math.random() > chanceToFindRock();
+        }
+    }
     @SuppressWarnings("unused")
     public Type getType() {
         return type;
     }
 
-    public enum Type { Default, Ceremony }
+    public enum Type { DEFAULT, CEREMONY, DIGGING_SPOT}
 
     public Location(Type t) {
         type = t;
     }
 
-    private final List<Person> characters = new LinkedList<>();
-    private final List<Person> charactersCenter = new LinkedList<>();
-    private final List<Person> charactersSide = new LinkedList<>();
+    private final List<Person> characters = new ArrayList<>();
+    private final List<Person> charactersCenter = new ArrayList<>();
+    private final List<Person> charactersSide = new ArrayList<>();
     private final Type type;
-    protected List<Furniture> objects = new LinkedList<>();
+    protected List<Furniture> objects = new ArrayList<>();
 
     public List<Furniture> getObjects() {
-        return new LinkedList<>(objects);
+        return new ArrayList<>(objects);
     }
 
     private boolean isPresent(Person p) {
-        var allCharacters = new LinkedList<Person>();
+        var allCharacters = new ArrayList<Person>();
         allCharacters.addAll(characters);
         allCharacters.addAll(charactersCenter);
         allCharacters.addAll(charactersSide);
@@ -37,7 +102,7 @@ public class Location {
     }
 
     public List<Person> getCharacters() {
-        var allCharacters = new LinkedList<Person>();
+        var allCharacters = new ArrayList<Person>();
         allCharacters.addAll(characters);
         allCharacters.addAll(charactersCenter);
         allCharacters.addAll(charactersSide);
@@ -47,13 +112,13 @@ public class Location {
     @SuppressWarnings("unused")
     private boolean isPresent(Person p, Position pos) {
         switch (pos) {
-            case Unspecified -> {
+            case UNSPECIFIED -> {
                 return characters.contains(p);
             }
-            case Center -> {
+            case CENTER -> {
                 return charactersCenter.contains(p);
             }
-            case Side -> {
+            case SIDE -> {
                 return charactersSide.contains(p);
             }
             default -> {
@@ -73,9 +138,9 @@ public class Location {
     public void addCharacter(Person p, Position pos) {
        if (!isPresent(p)) {
            switch (pos) {
-               case Unspecified -> characters.add(p);
-               case Center      -> charactersCenter.add(p);
-               case Side        -> charactersSide.add(p);
+               case UNSPECIFIED -> characters.add(p);
+               case CENTER      -> charactersCenter.add(p);
+               case SIDE        -> charactersSide.add(p);
            }
            p.setCurrentLocation(this);
        }
@@ -92,7 +157,7 @@ public class Location {
     public void removeObject(Furniture f) { this.objects.remove(f); }
 
     public enum Position {
-        Unspecified, Center, Side
+        UNSPECIFIED, CENTER, SIDE
     }
 
     public void changePosition(Person p, Position pos) {

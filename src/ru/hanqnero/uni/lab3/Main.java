@@ -2,6 +2,7 @@ package ru.hanqnero.uni.lab3;
 
 import ru.hanqnero.uni.lab3.environment.*;
 import ru.hanqnero.uni.lab3.environment.abstractions.*;
+import ru.hanqnero.uni.lab3.environment.abstractions.exceptions.WrongToolException;
 import ru.hanqnero.uni.lab3.environment.food.Breakfast;
 import ru.hanqnero.uni.lab3.environment.food.HotChocolate;
 import ru.hanqnero.uni.lab3.environment.food.Taste;
@@ -24,7 +25,7 @@ import java.util.LinkedList;
 public class Main {
     public static void main(String[] args) {
         Scene mainScene = new Scene();
-        mainScene.setLocation(new Location(Location.Type.Default));
+        mainScene.setLocation(new Location(Location.Type.DEFAULT));
         mainScene.setTimestamp(new TimeStamp(TimeStamp.Type.Regular, Instant.parse("2000-01-01T09:00:00.00Z"), TimeStamp.SpecialType.None));
         var mainLouis = new Louis();
         mainScene.addCharacter(mainLouis);
@@ -73,7 +74,7 @@ public class Main {
 
 
         var photoScene = new Scene();
-        photoScene.setLocation(new Location(Location.Type.Default));
+        photoScene.setLocation(new Location(Location.Type.DEFAULT));
         photoScene.setTimestamp(new TimeStamp(TimeStamp.Type.Special, Instant.parse("1970-01-01T12:00:00Z"), TimeStamp.SpecialType.EllieBirthday));
 
         var gageInPhoto = new Gage();
@@ -99,7 +100,7 @@ public class Main {
         mainEllie.hold(photo);
 
         var tragedyScene = new Scene();
-        tragedyScene.setLocation(new Location(Location.Type.Default));
+        tragedyScene.setLocation(new Location(Location.Type.DEFAULT));
         var gageInTragedy = new Gage();
         var othersInTragedy = new Person[] {new Louis(), new Ellie(), new Rachel()};
         tragedyScene.addCharacter(gageInTragedy);
@@ -115,7 +116,7 @@ public class Main {
 
 
         var louisThought = new Scene();
-        louisThought.setLocation(new Location(Location.Type.Ceremony));
+        louisThought.setLocation(new Location(Location.Type.CEREMONY));
 
         var peopleInLouisThought = new LinkedList<Person>();
         peopleInLouisThought.add(new Louis());
@@ -177,22 +178,19 @@ public class Main {
 
         var mainJud = new Jud();
         var ceremonyPreparations = new Scene();
-        ceremonyPreparations.setLocation(new Location(Location.Type.Ceremony));
+        ceremonyPreparations.setLocation(new Location(Location.Type.CEREMONY));
         ceremonyPreparations.addCharacter(mainJud);
 
 
         ceremonyPreparations.setLocation(
-        new Location(Location.Type.Ceremony) {
+        new Location(Location.Type.CEREMONY) {
             private float completeness;
 
             public boolean isCompleted() {
                 return completeness == 1f;
             }
 
-            public float getCompleteness() {
-                return completeness;
-            }
-
+            @SuppressWarnings("unused")
             public void workOnCompletion(float amount) {
                 if (!isCompleted()) {
                     completeness += amount;
@@ -203,9 +201,7 @@ public class Main {
                 }
             }
         }
-
         );
-
 
         mainJud.takePartIn(ceremonyPreparations.getLocation(), .1f);
 
@@ -220,13 +216,37 @@ public class Main {
         var threeMonthsAgo = mainScene.getTimestamp().date().minus(90L, ChronoUnit.DAYS);
         judWifeFuneral.setTimestamp(new TimeStamp(TimeStamp.Type.Special, threeMonthsAgo, TimeStamp.SpecialType.Funeral));
 
-        mainSteve.askChangePosition(mainJud, Location.Position.Side);
+        mainSteve.askChangePosition(mainJud, Location.Position.SIDE);
 
         mainLouis.goOutOfLocation();
 
         interface CanBeCompleted {boolean isCompleted();}
         if (((CanBeCompleted)(ceremonyPreparations.getLocation())).isCompleted()) {
             ceremonyPreparations.addCharacter(mainLouis);
+        }
+
+
+        var diggingScene = new Scene();
+        var diggingLocation = new Location(Location.Type.DEFAULT) {
+            private final Ground ground = new Ground(75, Ground.SoilType.ROCKY);
+            public Ground getGround() {return ground;}
+        };
+        diggingScene.setLocation(diggingLocation);
+
+        var diggingJud = new Jud();
+        diggingScene.addCharacter(diggingJud); // Can be used to demonstrate NoLocationException
+
+        int rocksDug = 0;
+        var judTool = Location.Ground.Tools.SHOVEL;
+        while (rocksDug < 10) {
+            try {
+                diggingJud.dig(judTool, diggingLocation.getGround());
+            } catch (WrongToolException e) {
+                System.err.printf(("Caught rock while digging or tried to dig soil with pickaxe. " +
+                        "Switching tool to: %s%n"), e.getRequiredTool());
+                judTool = e.getRequiredTool();
+                rocksDug++;
+            }
         }
 
     }
