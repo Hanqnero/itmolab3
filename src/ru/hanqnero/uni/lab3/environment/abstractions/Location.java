@@ -73,9 +73,9 @@ public class Location {
             }
             var currentRock = caughtRock;
             if (Math.random() < chanceToFindRock()) {
-                if (Math.random() < 0.20f) currentRock = RockType.TOO_HARD;
-                else currentRock = RockType.NORMAL;
-            } else currentRock = RockType.NONE;
+                if (Math.random() < 0.20f) caughtRock = RockType.TOO_HARD;
+                else caughtRock = RockType.NORMAL;
+            } else caughtRock = RockType.NONE;
 
             return currentRock;
         }
