@@ -236,16 +236,23 @@ public class Main {
         var diggingJud = new Jud();
         diggingScene.addCharacter(diggingJud); // Can be used to demonstrate NoLocationException
 
+        var shovel = new Shovel();
+        var pickaxe = new Pickaxe();
+
+        diggingJud.pickUp(shovel);
+
         int rocksDug = 0;
-        var judTool = Location.Ground.Tools.SHOVEL;
         while (rocksDug < 10) {
             try {
-                diggingJud.dig(judTool, diggingLocation.getGround());
+                diggingJud.dig(diggingLocation.getGround());
             } catch (WrongToolException e) {
                 System.err.printf(("Caught rock while digging or tried to dig soil with pickaxe. " +
                         "Switching tool to: %s%n"), e.getRequiredTool());
-                judTool = e.getRequiredTool();
+                diggingJud.pickUp(e.getRequiredTool().equals(Location.Ground.Tools.PICKAXE) ? pickaxe : shovel);
                 rocksDug++;
+                if (diggingJud.getExhaustion() > 50 && Math.random() < 0.4f) {
+                    diggingJud.sweat();
+                }
             }
         }
 

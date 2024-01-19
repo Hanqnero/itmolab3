@@ -16,6 +16,7 @@ import java.util.List;
 import static java.lang.Float.max;
 import static java.lang.Float.min;
 
+@SuppressWarnings("FieldCanBeLocal")
 public class Louis extends Person implements
         CanConsumeFood, CanHaveDesires, CanWearClothes, HasDislikedItems {
     private int saturation = 0;
@@ -73,10 +74,10 @@ public class Louis extends Person implements
     @SuppressWarnings("unused")
     private float headAngle = 90f;
     public void nod(float angle) {
-        float MINANGLE = 0f;
-        float MAXANGLE = 60f;
+        float MIN_ANGLE = 0f;
+        float MAX_ANGLE = 60f;
 //        clamp the angle value
-        angle = min(max(angle, MINANGLE), MAXANGLE);
+        angle = min(max(angle, MIN_ANGLE), MAX_ANGLE);
        this.headAngle -= angle;
 
 //       The head is tilted Now

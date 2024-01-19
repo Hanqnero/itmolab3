@@ -1,12 +1,12 @@
 package ru.hanqnero.uni.lab3.environment;
 
 import ru.hanqnero.uni.lab3.environment.abstractions.Scene;
-import ru.hanqnero.uni.lab3.people.Person;
+import ru.hanqnero.uni.lab3.people.interfaces.CanHoldItems;
 
 public class Photo implements CanBeHeld {
     private final Type type;
     private final Scene picturedScene;
-    private Person holder;
+    private CanHoldItems holder;
 
     public Photo(Scene s, Type t) {
         picturedScene = s;
@@ -19,13 +19,18 @@ public class Photo implements CanBeHeld {
     }
 
     @Override
-    public void whenHeld(Person holder) {
+    public void whenHeld(CanHoldItems holder) {
        this.holder = holder;
     }
 
     @Override
-    public Person getHolder() {
+    public CanHoldItems getHolder() {
         return this.holder;
+    }
+
+    @Override
+    public void whenDropped() {
+        holder = null;
     }
 
     @SuppressWarnings("unused")

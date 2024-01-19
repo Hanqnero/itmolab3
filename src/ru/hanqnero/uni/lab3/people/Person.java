@@ -31,6 +31,7 @@ public abstract class Person {
     @SuppressWarnings("unused")
     public float getSpeechLoudness() {return speechLoudness;}
     public void doMoodAction(ActionMood mood) {
+        //noinspection SwitchStatementWithTooFewBranches
         switch (mood) {
             case Screaming -> {
                 this.speechLoudness = 420f;
@@ -44,6 +45,7 @@ public abstract class Person {
     }
     public void removeMood(ActionMood mood) {
 
+        //noinspection SwitchStatementWithTooFewBranches
         switch (mood) {
             case Screaming -> {
                 this.speechLoudness = 100f;

@@ -36,12 +36,13 @@ public class Location {
             return (float) soilToughness / 75 * 100;
         }
 
-        private boolean caughtRock = false;
+        public enum RockType {NONE, NORMAL, TOO_HARD}
+        private RockType caughtRock = RockType.NONE;
 
         private static final double ROCK_DIGGING_TIME_MULTIPLIER = 1.5d;
         private long getDiggingTime() {
             double time = soilToughness * 100L;
-            if (caughtRock) time *= ROCK_DIGGING_TIME_MULTIPLIER;
+            if (caughtRock.compareTo(RockType.NONE) > 0) time *= ROCK_DIGGING_TIME_MULTIPLIER;
             return (long) time;
         }
 
@@ -49,13 +50,15 @@ public class Location {
             return soilToughness;
         }
 
-        public void whenDug(Tools usedTool, Person digger) throws WrongToolException {
+        public RockType whenDug(Tools usedTool, Person digger) throws WrongToolException {
             Tools tool = defaultTool;
-            if (caughtRock)
+            if (caughtRock.compareTo(RockType.NONE) > 0)
                 tool = Tools.PICKAXE;
 
-            if (usedTool.compareTo(defaultTool) != 0)
-                throw new WrongToolException(usedTool, tool);
+            if (usedTool.compareTo(tool) != 0) {
+                if (tool.equals(Tools.PICKAXE) || usedTool.compareTo(tool) < 0)
+                    throw new WrongToolException(usedTool, tool);
+            }
 
             var diggingTime = getDiggingTime();
             if (digger instanceof HasExhaustion p) {
@@ -68,8 +71,13 @@ public class Location {
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
+            var currentRock = caughtRock;
+            if (Math.random() < chanceToFindRock()) {
+                if (Math.random() < 0.20f) currentRock = RockType.TOO_HARD;
+                else currentRock = RockType.NORMAL;
+            } else currentRock = RockType.NONE;
 
-            caughtRock = Math.random() > chanceToFindRock();
+            return currentRock;
         }
     }
     @SuppressWarnings("unused")
@@ -87,7 +95,7 @@ public class Location {
     private final List<Person> charactersCenter = new ArrayList<>();
     private final List<Person> charactersSide = new ArrayList<>();
     private final Type type;
-    protected List<Furniture> objects = new ArrayList<>();
+    protected final List<Furniture> objects = new ArrayList<>();
 
     public List<Furniture> getObjects() {
         return new ArrayList<>(objects);
