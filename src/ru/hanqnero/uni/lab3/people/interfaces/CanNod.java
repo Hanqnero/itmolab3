@@ -24,7 +24,7 @@ public interface CanNod {
     }
 
     class Head {
-        public static enum State {TILTED_DOWN, REGULAR, TILTED_UP}
+        public enum State {TILTED_DOWN, REGULAR, TILTED_UP}
         State state = State.REGULAR;
 
         public void tilt(State s) {
