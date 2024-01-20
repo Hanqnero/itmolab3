@@ -1,11 +1,13 @@
-package ru.hanqnero.uni.lab3.environment;
+package ru.hanqnero.uni.lab3.environment.items;
 
 import org.jetbrains.annotations.NotNull;
 import ru.hanqnero.uni.lab3.environment.abstractions.Location;
+import ru.hanqnero.uni.lab3.environment.items.interfaces.CanBeHeld;
+import ru.hanqnero.uni.lab3.environment.items.interfaces.Tool;
 import ru.hanqnero.uni.lab3.people.interfaces.CanHoldItems;
 import ru.hanqnero.uni.lab3.people.interfaces.HasExhaustion;
 
-public class Pickaxe implements CanBeHeld, Tool{
+public class Pickaxe implements CanBeHeld, Tool {
     private CanHoldItems holder;
 
     @Override

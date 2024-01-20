@@ -1,4 +1,4 @@
-package ru.hanqnero.uni.lab3.environment;
+package ru.hanqnero.uni.lab3.environment.items.containers;
 
 import ru.hanqnero.uni.lab3.environment.food.Food;
 import ru.hanqnero.uni.lab3.environment.properties.Temperature;

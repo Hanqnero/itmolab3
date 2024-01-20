@@ -1,9 +1,9 @@
 package ru.hanqnero.uni.lab3.people;
 
 import org.jetbrains.annotations.NotNull;
-import ru.hanqnero.uni.lab3.environment.CanBeHeld;
-import ru.hanqnero.uni.lab3.environment.Pickaxe;
-import ru.hanqnero.uni.lab3.environment.Tool;
+import ru.hanqnero.uni.lab3.environment.items.interfaces.CanBeHeld;
+import ru.hanqnero.uni.lab3.environment.items.Pickaxe;
+import ru.hanqnero.uni.lab3.environment.items.interfaces.Tool;
 import ru.hanqnero.uni.lab3.environment.abstractions.Location;
 import ru.hanqnero.uni.lab3.environment.abstractions.Location.Ground.RockType;
 import ru.hanqnero.uni.lab3.environment.abstractions.Preparations;
@@ -12,8 +12,9 @@ import ru.hanqnero.uni.lab3.environment.abstractions.exceptions.WrongToolExcepti
 import ru.hanqnero.uni.lab3.people.interfaces.AskToChangePosition;
 import ru.hanqnero.uni.lab3.people.interfaces.CanDigSoil;
 import ru.hanqnero.uni.lab3.people.interfaces.CanHoldItems;
+import ru.hanqnero.uni.lab3.people.interfaces.CanNod;
 
-public class Jud extends Person implements AskToChangePosition, CanDigSoil, CanHoldItems {
+public class Jud extends Person implements AskToChangePosition, CanDigSoil, CanHoldItems, CanNod {
     public Jud() {
         super();
     }
@@ -77,4 +78,19 @@ public class Jud extends Person implements AskToChangePosition, CanDigSoil, CanH
     public void sweat() {
         exhaustion--;
     }
+
+    private final Head head = new Head();
+    public void nod(NodSpeed speed) {
+        head.tilt(Head.State.TILTED_DOWN);
+        System.out.printf("%s %s nods...%n", getName(), speed.toStringAdverb());
+        try {
+            Thread.sleep(speed.toLong());
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        head.tilt(Head.State.TILTED_UP);
+        head.tilt(Head.State.REGULAR);
+    }
+
+
 }

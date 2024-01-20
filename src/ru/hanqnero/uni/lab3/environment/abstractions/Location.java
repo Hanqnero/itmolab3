@@ -1,7 +1,7 @@
 package ru.hanqnero.uni.lab3.environment.abstractions;
 
-import ru.hanqnero.uni.lab3.environment.Furniture;
-import ru.hanqnero.uni.lab3.environment.Tool;
+import ru.hanqnero.uni.lab3.environment.items.interfaces.Furniture;
+import ru.hanqnero.uni.lab3.environment.items.interfaces.Tool;
 import ru.hanqnero.uni.lab3.environment.abstractions.exceptions.WrongToolException;
 import ru.hanqnero.uni.lab3.people.Person;
 import ru.hanqnero.uni.lab3.people.interfaces.HasExhaustion;

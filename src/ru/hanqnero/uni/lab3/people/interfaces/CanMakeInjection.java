@@ -1,6 +1,6 @@
 package ru.hanqnero.uni.lab3.people.interfaces;
 
-import ru.hanqnero.uni.lab3.environment.Syringe;
+import ru.hanqnero.uni.lab3.environment.items.containers.Syringe;
 
 public interface CanMakeInjection {
     default void makeInjection(HasMedicalCondition p, Syringe m) {

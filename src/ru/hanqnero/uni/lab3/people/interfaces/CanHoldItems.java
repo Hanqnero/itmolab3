@@ -1,6 +1,6 @@
 package ru.hanqnero.uni.lab3.people.interfaces;
 
-import ru.hanqnero.uni.lab3.environment.CanBeHeld;
+import ru.hanqnero.uni.lab3.environment.items.interfaces.CanBeHeld;
 
 public interface CanHoldItems {
     CanBeHeld getItemHeld();

@@ -1,7 +1,7 @@
 package ru.hanqnero.uni.lab3.people;
 
-import ru.hanqnero.uni.lab3.environment.Clothes;
-import ru.hanqnero.uni.lab3.environment.Container;
+import ru.hanqnero.uni.lab3.environment.items.Clothes;
+import ru.hanqnero.uni.lab3.environment.items.containers.Container;
 import ru.hanqnero.uni.lab3.environment.food.cooking.Stove;
 import ru.hanqnero.uni.lab3.environment.food.Food;
 import ru.hanqnero.uni.lab3.environment.food.FoodToCook;

@@ -1,5 +1,6 @@
-package ru.hanqnero.uni.lab3.environment;
+package ru.hanqnero.uni.lab3.environment.items.containers;
 
+import ru.hanqnero.uni.lab3.environment.items.interfaces.Furniture;
 import ru.hanqnero.uni.lab3.people.Person;
 
 public class Coffin extends Container<Person> implements Furniture {

@@ -1,7 +1,7 @@
 package ru.hanqnero.uni.lab3.people;
 
 import ru.hanqnero.uni.lab3.environment.riding.CanBeRidden;
-import ru.hanqnero.uni.lab3.environment.Clothes;
+import ru.hanqnero.uni.lab3.environment.items.Clothes;
 import ru.hanqnero.uni.lab3.environment.properties.Temperature;
 import ru.hanqnero.uni.lab3.environment.food.Food;
 import ru.hanqnero.uni.lab3.environment.food.HotChocolate;

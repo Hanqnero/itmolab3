@@ -1,9 +1,11 @@
-package ru.hanqnero.uni.lab3.environment;
+package ru.hanqnero.uni.lab3.environment.items;
 
 import ru.hanqnero.uni.lab3.environment.abstractions.Location;
+import ru.hanqnero.uni.lab3.environment.items.interfaces.CanBeHeld;
+import ru.hanqnero.uni.lab3.environment.items.interfaces.Tool;
 import ru.hanqnero.uni.lab3.people.interfaces.CanHoldItems;
 
-public class Shovel implements CanBeHeld, Tool{
+public class Shovel implements CanBeHeld, Tool {
     private CanHoldItems holder;
 
     @Override

@@ -1,8 +1,10 @@
-package ru.hanqnero.uni.lab3.environment;
+package ru.hanqnero.uni.lab3.environment.items;
 
+import ru.hanqnero.uni.lab3.environment.items.interfaces.Furniture;
 import ru.hanqnero.uni.lab3.people.interfaces.CanWatchTV;
 
 public class TV implements Furniture {
+    public record TVProgramme(String name, int brainDamage) {}
     protected boolean isOn;
     private TVProgramme currentProgramme;
 

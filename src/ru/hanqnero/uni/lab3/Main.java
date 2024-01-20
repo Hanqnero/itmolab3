@@ -1,18 +1,22 @@
 package ru.hanqnero.uni.lab3;
 
-import ru.hanqnero.uni.lab3.environment.*;
 import ru.hanqnero.uni.lab3.environment.abstractions.*;
 import ru.hanqnero.uni.lab3.environment.abstractions.exceptions.WrongToolException;
 import ru.hanqnero.uni.lab3.environment.food.Breakfast;
 import ru.hanqnero.uni.lab3.environment.food.HotChocolate;
 import ru.hanqnero.uni.lab3.environment.food.Taste;
 import ru.hanqnero.uni.lab3.environment.food.cooking.Stove;
+import ru.hanqnero.uni.lab3.environment.items.*;
+import ru.hanqnero.uni.lab3.environment.items.containers.Coffin;
+import ru.hanqnero.uni.lab3.environment.items.containers.Cup;
+import ru.hanqnero.uni.lab3.environment.items.containers.Syringe;
 import ru.hanqnero.uni.lab3.environment.medicine.Injection;
 import ru.hanqnero.uni.lab3.environment.medicine.TakenInternallyMedicine;
 import ru.hanqnero.uni.lab3.environment.properties.Color;
 import ru.hanqnero.uni.lab3.environment.properties.Temperature;
 import ru.hanqnero.uni.lab3.environment.riding.Sledge;
 import ru.hanqnero.uni.lab3.people.*;
+import ru.hanqnero.uni.lab3.people.interfaces.CanNod;
 import ru.hanqnero.uni.lab3.people.moods.ActionMood;
 import ru.hanqnero.uni.lab3.people.properties.FaceExpression;
 import ru.hanqnero.uni.lab3.people.properties.HairStyle;
@@ -163,7 +167,7 @@ public class Main {
 
         var tv = new TV();
         mainScene.getLocation().addObject(tv);
-        tv.setCurrentProgramme(new TVProgramme("Wheel Of Fortune", 50));
+        tv.setCurrentProgramme(new TV.TVProgramme("Wheel Of Fortune", 50));
         int QUESTION_AMOUNT = 15;
         for (int i = 0; i < QUESTION_AMOUNT; ++i) {
             mainRachel.watchTV(tv);
@@ -220,6 +224,7 @@ public class Main {
         diggingJud.pickUp(shovel);
 
 
+        diggingJud.nod(CanNod.NodSpeed.SLOW);
 
         int rocksDug = 0;
         while (rocksDug < 20) {

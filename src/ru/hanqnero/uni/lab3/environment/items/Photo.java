@@ -1,6 +1,7 @@
-package ru.hanqnero.uni.lab3.environment;
+package ru.hanqnero.uni.lab3.environment.items;
 
 import ru.hanqnero.uni.lab3.environment.abstractions.Scene;
+import ru.hanqnero.uni.lab3.environment.items.interfaces.CanBeHeld;
 import ru.hanqnero.uni.lab3.people.interfaces.CanHoldItems;
 
 public class Photo implements CanBeHeld {

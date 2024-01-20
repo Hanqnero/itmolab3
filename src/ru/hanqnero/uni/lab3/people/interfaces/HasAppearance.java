@@ -1,9 +1,8 @@
 package ru.hanqnero.uni.lab3.people.interfaces;
 
-import ru.hanqnero.uni.lab3.environment.LookType;
-
 @SuppressWarnings("unused")
 public interface HasAppearance {
+    public enum LookType { Beautiful, Default }
     LookType getAppearance();
     void setAppearance();
 }

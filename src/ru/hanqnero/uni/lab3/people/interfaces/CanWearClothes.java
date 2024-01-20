@@ -1,6 +1,6 @@
 package ru.hanqnero.uni.lab3.people.interfaces;
 
-import ru.hanqnero.uni.lab3.environment.Clothes;
+import ru.hanqnero.uni.lab3.environment.items.Clothes;
 
 import java.util.List;
 

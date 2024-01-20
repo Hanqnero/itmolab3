@@ -1,6 +1,6 @@
 package ru.hanqnero.uni.lab3.environment.food.cooking;
 
-import ru.hanqnero.uni.lab3.environment.Furniture;
+import ru.hanqnero.uni.lab3.environment.items.interfaces.Furniture;
 import ru.hanqnero.uni.lab3.environment.food.CookedDegree;
 import ru.hanqnero.uni.lab3.environment.food.FoodToCook;
 import ru.hanqnero.uni.lab3.environment.properties.Temperature;
