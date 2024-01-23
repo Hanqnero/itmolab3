@@ -15,9 +15,6 @@ import ru.hanqnero.uni.lab3.people.interfaces.CanHoldItems;
 import ru.hanqnero.uni.lab3.people.interfaces.CanNod;
 
 public class Jud extends Person implements AskToChangePosition, CanDigSoil, CanHoldItems, CanNod {
-    public Jud() {
-        super();
-    }
     @Override
     public String getName() {return "Jud";}
 

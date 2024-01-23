@@ -21,8 +21,6 @@ public class Ellie extends Person implements
     private FaceExpression faceExpression;
     private final List<Object> dislikedItems = new LinkedList<>();
 
-    public Ellie() { super(); }
-
     @Override
     public String getName() {return "Ellie";}
 

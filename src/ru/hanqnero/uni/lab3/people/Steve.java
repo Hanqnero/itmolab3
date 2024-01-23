@@ -7,10 +7,6 @@ import ru.hanqnero.uni.lab3.people.interfaces.*;
 
 public class Steve extends Person
         implements CanMakeInjection, CanGiveMedicine {
-    public Steve() {
-        super();
-    }
-
     @Override
     public String getName() {return "Steve";}
 

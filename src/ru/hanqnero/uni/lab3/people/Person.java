@@ -12,8 +12,6 @@ public abstract class Person {
     private Location currentLocation;
     private final HashSet<ActionMood> currentMoods = new HashSet<>();
 
-    public Person() {}
-
     public void goOutOfLocation() { this.currentLocation.removeCharacter(this); }
 
     public Set<ActionMood> getCurrentMoods() { return currentMoods; }

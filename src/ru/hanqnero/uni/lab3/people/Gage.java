@@ -19,7 +19,6 @@ public class Gage extends Person implements
     private List<Clothes> currentClothes = new LinkedList<>();
 
     public Gage(Food favoriteFood) {
-        super();
         this.favoriteFood = favoriteFood;
     }
 

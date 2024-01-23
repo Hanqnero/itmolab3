@@ -27,8 +27,6 @@ public class Louis extends Person implements
     @SuppressWarnings("unused")
     private Scene currentlyThinkingOf;
 
-    public Louis() { super();}
-
     @Override
     public String getName() {return "Louis";}
 

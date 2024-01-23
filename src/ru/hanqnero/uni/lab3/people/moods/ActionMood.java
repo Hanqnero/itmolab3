@@ -7,7 +7,6 @@ public enum ActionMood {
     WithoutComplains,
     Screaming,
     Roughly,
-
     Shocked,
     ConcentratedInsanity,
     Calm,

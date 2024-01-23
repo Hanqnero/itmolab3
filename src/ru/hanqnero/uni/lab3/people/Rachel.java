@@ -9,10 +9,6 @@ public class Rachel extends Person
         implements CanBeAskedQuestions, HasMedicalCondition, CanWatchTV {
     private int availableBrainPower = 1000;
 
-    public Rachel() {
-        super();
-    }
-
     @Override
     public String getName() {return "Rachel";}
 

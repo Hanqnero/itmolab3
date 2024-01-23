@@ -14,7 +14,6 @@ public class Sledge implements CanBeRidden {
             riddenBy.add(rider);
         }
     }
-
     @Override
     public void whenStoppedRiding(CanRide rider) {
         riddenBy.remove(rider);
