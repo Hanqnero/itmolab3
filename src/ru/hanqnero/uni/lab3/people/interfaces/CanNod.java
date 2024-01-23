@@ -9,13 +9,16 @@ public interface CanNod {
         FAST(150L, "quickly");
         private final long time;
         private final String adverb;
+
         NodSpeed(long time, String adverb) {
             this.time = time;
             this.adverb = adverb;
         }
+
         public long toLong() {
             return time;
         }
+
         public String toStringAdverb() {
             return adverb;
         }
@@ -24,11 +27,12 @@ public interface CanNod {
     }
 
     class Head {
-        public enum State {TILTED_DOWN, REGULAR, TILTED_UP}
         State state = State.REGULAR;
 
         public void tilt(State s) {
             state = s;
         }
+
+        public enum State {TILTED_DOWN, REGULAR, TILTED_UP}
     }
 }

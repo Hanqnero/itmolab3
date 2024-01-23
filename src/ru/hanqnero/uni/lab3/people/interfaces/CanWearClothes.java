@@ -2,14 +2,17 @@ package ru.hanqnero.uni.lab3.people.interfaces;
 
 import ru.hanqnero.uni.lab3.environment.items.Clothes;
 
-import java.util.List;
+import java.util.Set;
 
 public interface CanWearClothes {
     @SuppressWarnings("unused")
-    List<Clothes> getCurrentClothes();
+    Set<Clothes> getCurrentClothes();
+
     @SuppressWarnings("unused")
-    void setCurrentClothes(List<Clothes> c);
+    void setCurrentClothes(Set<Clothes> c);
+
     void addClothingItem(Clothes item);
+
     @SuppressWarnings("unused")
     void removeClothingItem(Clothes item);
 

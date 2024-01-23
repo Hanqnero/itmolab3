@@ -6,10 +6,12 @@ import ru.hanqnero.uni.lab3.people.Person;
 public class Scene {
     private Location location;
     private TimeStamp timestamp;
+
     public Location getLocation() throws NoLocationException {
         if (location == null) throw new NoLocationException();
         return location;
     }
+
     public void setLocation(Location l) {
         location = l;
     }
@@ -19,17 +21,18 @@ public class Scene {
         this.getLocation().addCharacter(p);
         p.setCurrentScene(this);
     }
+
     @SuppressWarnings("unused")
-    public void removeCharacter(Person p) throws NoLocationException{
+    public void removeCharacter(Person p) throws NoLocationException {
         if (location == null) throw new NoLocationException();
         location.removeCharacter(p);
     }
 
-    public void setTimestamp(TimeStamp ts) {
-        timestamp = ts;
-    }
-
     public TimeStamp getTimestamp() {
         return timestamp;
+    }
+
+    public void setTimestamp(TimeStamp ts) {
+        timestamp = ts;
     }
 }

@@ -1,45 +1,45 @@
 package ru.hanqnero.uni.lab3.people;
 
-import ru.hanqnero.uni.lab3.environment.items.interfaces.CanBeHeld;
-import ru.hanqnero.uni.lab3.environment.riding.CanBeRidden;
+import ru.hanqnero.uni.lab3.environment.food.Food;
 import ru.hanqnero.uni.lab3.environment.items.Clothes;
 import ru.hanqnero.uni.lab3.environment.items.containers.Container;
-import ru.hanqnero.uni.lab3.environment.food.Food;
+import ru.hanqnero.uni.lab3.environment.items.interfaces.CanBeHeld;
+import ru.hanqnero.uni.lab3.environment.riding.CanBeRidden;
 import ru.hanqnero.uni.lab3.people.interfaces.*;
 import ru.hanqnero.uni.lab3.people.properties.FaceExpression;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Ellie extends Person implements
-        CanWearClothes, CanConsumeFood, CanRide, HasFaceExpression,HasMedicalCondition, HasDislikedItems, CanHoldItems {
-    private List<Clothes> currentClothes = new LinkedList<>();
+        CanWearClothes, CanConsumeFood, CanRide, HasFaceExpression, HasMedicalCondition, HasDislikedItems, CanHoldItems {
+    private final Set<Object> dislikedItems = new HashSet<>();
+    private Set<Clothes> currentClothes = new HashSet<>();
     private int saturation;
     private CanBeHeld itemHeld;
     private int medicalCondition = 200;
     private CanBeRidden currentlyRides;
     private FaceExpression faceExpression;
-    private final List<Object> dislikedItems = new LinkedList<>();
-
-    public Ellie() { super(); }
+    private SleepingState sleepState = SleepingState.Awake;
 
     @Override
-    public String getName() {return "Ellie";}
-
-    @Override
-    public List<Clothes> getCurrentClothes() {
-        return new LinkedList<>(currentClothes);
+    public String getName() {
+        return "Ellie";
     }
 
-    public void setCurrentClothes(List<Clothes> c) {
+    @Override
+    public Set<Clothes> getCurrentClothes() {
+        return new HashSet<>(currentClothes);
+    }
+
+    @Override
+    public void setCurrentClothes(Set<Clothes> c) {
         this.currentClothes = c;
     }
 
     @Override
     public void addClothingItem(Clothes item) {
-        if (!this.currentClothes.contains(item)) {
-            this.currentClothes.add(item);
-        }
+        this.currentClothes.add(item);
     }
 
     @Override
@@ -78,8 +78,8 @@ public class Ellie extends Person implements
     }
 
     public void hold(CanBeHeld item) {
-       this.itemHeld = item;
-       item.whenHeld(this);
+        this.itemHeld = item;
+        item.whenHeld(this);
     }
 
     @SuppressWarnings("unused")
@@ -129,7 +129,7 @@ public class Ellie extends Person implements
 
     @Override
     public void setFaceExpression(FaceExpression expression) {
-       faceExpression = expression;
+        faceExpression = expression;
     }
 
     @Override
@@ -143,15 +143,13 @@ public class Ellie extends Person implements
     }
 
     @Override
-    public List<Object> getDislikedItems() {
+    public Set<Object> getDislikedItems() {
         return dislikedItems;
     }
 
     @Override
     public void dislikeNewItem(Object o) {
-        if (!dislikedItems.contains(o)) {
-            dislikedItems.add(o);
-        }
+        dislikedItems.add(o);
     }
 
     @Override
@@ -159,11 +157,10 @@ public class Ellie extends Person implements
         dislikedItems.remove(o);
     }
 
-    public enum SleepingState {Awake, Sleeping}
-    private SleepingState sleepState = SleepingState.Awake;
     public void sleep() {
-       sleepState = SleepingState.Sleeping;
+        sleepState = SleepingState.Sleeping;
     }
+
     @SuppressWarnings("unused")
     public void wakeUp() {
         sleepState = SleepingState.Awake;
@@ -173,4 +170,6 @@ public class Ellie extends Person implements
     public SleepingState getSleepState() {
         return sleepState;
     }
+
+    public enum SleepingState {Awake, Sleeping}
 }

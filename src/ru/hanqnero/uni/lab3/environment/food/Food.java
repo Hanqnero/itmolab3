@@ -11,12 +11,22 @@ public abstract class Food {
         this.taste = taste;
     }
 
-    public int getSaturationChange() { return saturationChange; }
-    public boolean isConsumed() { return consumed; }
-    public void consume() { this.consumed = true; }
+    public int getSaturationChange() {
+        return saturationChange;
+    }
+
+    public boolean isConsumed() {
+        return consumed;
+    }
+
+    public void consume() {
+        this.consumed = true;
+    }
 
     @SuppressWarnings("unused")
-    public Taste getTaste() { return taste; }
+    public Taste getTaste() {
+        return taste;
+    }
 
     @Override
     public boolean equals(Object that) {

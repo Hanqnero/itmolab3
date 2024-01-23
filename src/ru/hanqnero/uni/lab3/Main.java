@@ -6,10 +6,14 @@ import ru.hanqnero.uni.lab3.environment.food.Breakfast;
 import ru.hanqnero.uni.lab3.environment.food.HotChocolate;
 import ru.hanqnero.uni.lab3.environment.food.Taste;
 import ru.hanqnero.uni.lab3.environment.food.cooking.Stove;
-import ru.hanqnero.uni.lab3.environment.items.*;
+import ru.hanqnero.uni.lab3.environment.items.Clothes;
+import ru.hanqnero.uni.lab3.environment.items.Photo;
+import ru.hanqnero.uni.lab3.environment.items.TV;
 import ru.hanqnero.uni.lab3.environment.items.containers.Coffin;
 import ru.hanqnero.uni.lab3.environment.items.containers.Cup;
 import ru.hanqnero.uni.lab3.environment.items.containers.Syringe;
+import ru.hanqnero.uni.lab3.environment.items.tools.Pickaxe;
+import ru.hanqnero.uni.lab3.environment.items.tools.Shovel;
 import ru.hanqnero.uni.lab3.environment.medicine.Injection;
 import ru.hanqnero.uni.lab3.environment.medicine.TakenInternallyMedicine;
 import ru.hanqnero.uni.lab3.environment.properties.Color;
@@ -23,8 +27,7 @@ import ru.hanqnero.uni.lab3.people.properties.HairStyle;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
-import java.util.LinkedList;
-
+import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
@@ -106,9 +109,9 @@ public class Main {
         var tragedyScene = new Scene();
         tragedyScene.setLocation(new Location(Location.Type.DEFAULT));
         var gageInTragedy = new Gage();
-        var othersInTragedy = new Person[] {new Louis(), new Ellie(), new Rachel()};
+        var othersInTragedy = new Person[]{new Louis(), new Ellie(), new Rachel()};
         tragedyScene.addCharacter(gageInTragedy);
-        for (var p: othersInTragedy) {
+        for (var p : othersInTragedy) {
             tragedyScene.addCharacter(p);
             p.addNewMood(ActionMood.Screaming);
             p.doMoodAction(ActionMood.Screaming);
@@ -122,7 +125,7 @@ public class Main {
         var louisThought = new Scene();
         louisThought.setLocation(new Location(Location.Type.CEREMONY));
 
-        var peopleInLouisThought = new LinkedList<Person>();
+        var peopleInLouisThought = new ArrayList<Person>();
         peopleInLouisThought.add(new Louis());
         peopleInLouisThought.add(new Rachel());
         peopleInLouisThought.add(new Ellie());
@@ -132,23 +135,21 @@ public class Main {
         gageInLouisThought.die();
         louisThought.addCharacter(gageInLouisThought);
         var coffin = new Coffin();
-        coffin.setState(Coffin.State.Open);
+        coffin.setState(true);
         coffin.fill(gageInLouisThought);
 
         louisThought.getLocation().addObject(coffin);
-        for (var p: peopleInLouisThought) {
+        for (var p : peopleInLouisThought) {
             louisThought.addCharacter(p);
         }
 
-        if (coffin.getState().equals(Coffin.State.Open)) {
-            for (var p: peopleInLouisThought) {
+        if (coffin.isOpen()) {
+            for (var p : peopleInLouisThought) {
                 p.addNewMood(ActionMood.Screaming);
                 p.goOutOfLocation();
             }
         }
-
         mainLouis.thinkOfAScene(louisThought);
-
 
         var mainSteve = new Steve();
         var syringe = new Syringe();
@@ -212,7 +213,10 @@ public class Main {
         var diggingScene = new Scene();
         var diggingLocation = new Location(Location.Type.DEFAULT) {
             private final Ground ground = new Ground(75, Ground.SoilType.ROCKY);
-            public Ground getGround() {return ground;}
+
+            public Ground getGround() {
+                return ground;
+            }
         };
         diggingScene.setLocation(diggingLocation);
 
@@ -228,22 +232,22 @@ public class Main {
 
         int rocksDug = 0;
         while (rocksDug < 20) {
-           try {
-               var dugStone = diggingJud.dig(diggingLocation.getGround());
-               if (dugStone) rocksDug++;
-               System.out.printf("Successfully mined %s with %s; current Exhaustion: %d%n", dugStone?"Stone":"Soil", diggingJud.getItemHeld(), diggingJud.getExhaustion());
-           } catch (WrongToolException e) {
-               switch (e.getRequiredTool()) {
-                   case PICKAXE -> {
-                       System.err.printf("Cannot mine stone with %s. Changing tool to %s%n", diggingJud.getItemHeld(), e.getRequiredTool());
-                       diggingJud.pickUp(pickaxe);
-                   }
-                   case SHOVEL -> {
-                       System.err.printf("Cannot dig trough soil with %s, Changing tool to %s%n", diggingJud.getItemHeld(), e.getRequiredTool());
-                       diggingJud.pickUp(shovel);
-                   }
-               }
-           }
+            try {
+                var dugStone = diggingJud.dig(diggingLocation.getGround());
+                if (dugStone) rocksDug++;
+                System.out.printf("Successfully mined %s with %s; current Exhaustion: %d%n", dugStone ? "Stone" : "Soil", diggingJud.getItemHeld(), diggingJud.getExhaustion());
+            } catch (WrongToolException e) {
+                switch (e.getRequiredTool()) {
+                    case PICKAXE -> {
+                        System.err.printf("Cannot mine stone with %s. Changing tool to %s%n", diggingJud.getItemHeld(), e.getRequiredTool());
+                        diggingJud.pickUp(pickaxe);
+                    }
+                    case SHOVEL -> {
+                        System.err.printf("Cannot dig trough soil with %s, Changing tool to %s%n", diggingJud.getItemHeld(), e.getRequiredTool());
+                        diggingJud.pickUp(shovel);
+                    }
+                }
+            }
         }
     }
 }
