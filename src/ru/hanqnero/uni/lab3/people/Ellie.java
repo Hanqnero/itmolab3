@@ -1,43 +1,42 @@
 package ru.hanqnero.uni.lab3.people;
 
-import ru.hanqnero.uni.lab3.environment.items.interfaces.CanBeHeld;
-import ru.hanqnero.uni.lab3.environment.riding.CanBeRidden;
+import ru.hanqnero.uni.lab3.environment.food.Food;
 import ru.hanqnero.uni.lab3.environment.items.Clothes;
 import ru.hanqnero.uni.lab3.environment.items.containers.Container;
-import ru.hanqnero.uni.lab3.environment.food.Food;
+import ru.hanqnero.uni.lab3.environment.items.interfaces.CanBeHeld;
+import ru.hanqnero.uni.lab3.environment.riding.CanBeRidden;
 import ru.hanqnero.uni.lab3.people.interfaces.*;
 import ru.hanqnero.uni.lab3.people.properties.FaceExpression;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Ellie extends Person implements
         CanWearClothes, CanConsumeFood, CanRide, HasFaceExpression,HasMedicalCondition, HasDislikedItems, CanHoldItems {
-    private List<Clothes> currentClothes = new LinkedList<>();
+    private Set<Clothes> currentClothes = new HashSet<>();
     private int saturation;
     private CanBeHeld itemHeld;
     private int medicalCondition = 200;
     private CanBeRidden currentlyRides;
     private FaceExpression faceExpression;
-    private final List<Object> dislikedItems = new LinkedList<>();
+    private final Set<Object> dislikedItems = new HashSet<>();
 
     @Override
     public String getName() {return "Ellie";}
 
     @Override
-    public List<Clothes> getCurrentClothes() {
-        return new LinkedList<>(currentClothes);
+    public Set<Clothes> getCurrentClothes() {
+        return new HashSet<>(currentClothes);
     }
 
-    public void setCurrentClothes(List<Clothes> c) {
+    @Override
+    public void setCurrentClothes(Set<Clothes> c) {
         this.currentClothes = c;
     }
 
     @Override
     public void addClothingItem(Clothes item) {
-        if (!this.currentClothes.contains(item)) {
-            this.currentClothes.add(item);
-        }
+        this.currentClothes.add(item);
     }
 
     @Override
@@ -141,15 +140,13 @@ public class Ellie extends Person implements
     }
 
     @Override
-    public List<Object> getDislikedItems() {
+    public Set<Object> getDislikedItems() {
         return dislikedItems;
     }
 
     @Override
     public void dislikeNewItem(Object o) {
-        if (!dislikedItems.contains(o)) {
-            dislikedItems.add(o);
-        }
+        dislikedItems.add(o);
     }
 
     @Override

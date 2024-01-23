@@ -25,8 +25,7 @@ import ru.hanqnero.uni.lab3.people.properties.HairStyle;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
-import java.util.LinkedList;
-
+import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
@@ -124,7 +123,7 @@ public class Main {
         var louisThought = new Scene();
         louisThought.setLocation(new Location(Location.Type.CEREMONY));
 
-        var peopleInLouisThought = new LinkedList<Person>();
+        var peopleInLouisThought = new ArrayList<Person>();
         peopleInLouisThought.add(new Louis());
         peopleInLouisThought.add(new Rachel());
         peopleInLouisThought.add(new Ellie());

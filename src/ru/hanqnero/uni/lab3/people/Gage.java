@@ -9,13 +9,13 @@ import ru.hanqnero.uni.lab3.environment.food.Taste;
 import ru.hanqnero.uni.lab3.people.interfaces.*;
 import ru.hanqnero.uni.lab3.people.properties.FaceExpression;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Gage extends Person implements
         HasFavoriteFood, CanWearClothes, CanRide, HasFaceExpression, CanBeDead {
     private final Food favoriteFood;
-    private List<Clothes> currentClothes = new LinkedList<>();
+    private Set<Clothes> currentClothes = new HashSet<>();
 
     public Gage(Food favoriteFood) {
         this.favoriteFood = favoriteFood;
@@ -35,20 +35,18 @@ public class Gage extends Person implements
     }
 
     @Override
-    public List<Clothes> getCurrentClothes() {
-        return new LinkedList<>(currentClothes);
+    public Set<Clothes> getCurrentClothes() {
+        return new HashSet<>(currentClothes);
     }
 
     @Override
-    public void setCurrentClothes(List<Clothes> c) {
+    public void setCurrentClothes(Set<Clothes> c) {
         this.currentClothes = c;
     }
 
     @Override
     public void addClothingItem(Clothes item) {
-        if (!this.currentClothes.contains(item)) {
-            this.currentClothes.add(item);
-        }
+        this.currentClothes.add(item);
     }
 
     @Override

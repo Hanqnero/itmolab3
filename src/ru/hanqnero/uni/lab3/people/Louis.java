@@ -10,8 +10,10 @@ import ru.hanqnero.uni.lab3.people.interfaces.*;
 import ru.hanqnero.uni.lab3.people.properties.HairLength;
 import ru.hanqnero.uni.lab3.people.properties.HairStyle;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static java.lang.Float.max;
 import static java.lang.Float.min;
@@ -21,7 +23,7 @@ public class Louis extends Person implements
         CanConsumeFood, CanHaveDesires, CanWearClothes, HasDislikedItems {
     private int saturation = 0;
     private Desire currentDesire;
-    private List<Clothes> currentClothes = new LinkedList<>();
+    private Set<Clothes> currentClothes = new HashSet<>();
     private HairLength faceHairLength;
     private HairStyle hairStyle = HairStyle.Messy;
     @SuppressWarnings("unused")
@@ -93,20 +95,18 @@ public class Louis extends Person implements
     }
 
     @Override
-    public List<Clothes> getCurrentClothes() {
-        return new LinkedList<>(currentClothes);
+    public Set<Clothes> getCurrentClothes() {
+        return new HashSet<>(currentClothes);
     }
 
     @Override
-    public void setCurrentClothes(List<Clothes> c) {
+    public void setCurrentClothes(Set<Clothes> c) {
         this.currentClothes = c;
     }
 
     @Override
     public void addClothingItem(Clothes item) {
-        if (!this.currentClothes.contains(item)) {
-            this.currentClothes.add(item);
-        }
+        this.currentClothes.add(item);
     }
 
     @Override
@@ -133,10 +133,10 @@ public class Louis extends Person implements
         this.hairStyle = hs;
     }
 
-    private final List<Object> dislikedItems = new LinkedList<>();
+    private final List<Object> dislikedItems = new ArrayList<>();
     @Override
-    public List<Object> getDislikedItems() {
-        return new LinkedList<>(dislikedItems);
+    public Set<Object> getDislikedItems() {
+        return new HashSet<>(dislikedItems);
     }
 
     @Override
