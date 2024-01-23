@@ -10,6 +10,8 @@ import ru.hanqnero.uni.lab3.environment.items.*;
 import ru.hanqnero.uni.lab3.environment.items.containers.Coffin;
 import ru.hanqnero.uni.lab3.environment.items.containers.Cup;
 import ru.hanqnero.uni.lab3.environment.items.containers.Syringe;
+import ru.hanqnero.uni.lab3.environment.items.tools.Pickaxe;
+import ru.hanqnero.uni.lab3.environment.items.tools.Shovel;
 import ru.hanqnero.uni.lab3.environment.medicine.Injection;
 import ru.hanqnero.uni.lab3.environment.medicine.TakenInternallyMedicine;
 import ru.hanqnero.uni.lab3.environment.properties.Color;
@@ -132,7 +134,7 @@ public class Main {
         gageInLouisThought.die();
         louisThought.addCharacter(gageInLouisThought);
         var coffin = new Coffin();
-        coffin.setState(Coffin.State.Open);
+        coffin.setState(true);
         coffin.fill(gageInLouisThought);
 
         louisThought.getLocation().addObject(coffin);
@@ -140,15 +142,13 @@ public class Main {
             louisThought.addCharacter(p);
         }
 
-        if (coffin.getState().equals(Coffin.State.Open)) {
+        if (coffin.isOpen()) {
             for (var p: peopleInLouisThought) {
                 p.addNewMood(ActionMood.Screaming);
                 p.goOutOfLocation();
             }
         }
-
         mainLouis.thinkOfAScene(louisThought);
-
 
         var mainSteve = new Steve();
         var syringe = new Syringe();

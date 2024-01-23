@@ -4,14 +4,12 @@ import ru.hanqnero.uni.lab3.environment.items.interfaces.Furniture;
 import ru.hanqnero.uni.lab3.people.Person;
 
 public class Coffin extends Container<Person> implements Furniture {
-    public enum State {Open, Closed}
-
-    protected State state = State.Closed;
+    protected boolean state = false;
 
     @Override
     public void fill(Person o) {
-        if (this.state == State.Open) {
-            this.content = o;
+        if (state) {
+            content = o;
             o.goOutOfLocation();
         }
     }
@@ -27,7 +25,7 @@ public class Coffin extends Container<Person> implements Furniture {
         return content;
     }
 
-    public State getState() { return state; }
-    public void setState(State state) { this.state = state; }
+    public boolean isOpen() { return state;}
+    public void setState(boolean state) { this.state = state;}
 
 }

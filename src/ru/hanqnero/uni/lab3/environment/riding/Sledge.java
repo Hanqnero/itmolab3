@@ -1,6 +1,5 @@
 package ru.hanqnero.uni.lab3.environment.riding;
 
-import ru.hanqnero.uni.lab3.environment.riding.CanBeRidden;
 import ru.hanqnero.uni.lab3.people.interfaces.CanRide;
 
 import java.util.LinkedList;

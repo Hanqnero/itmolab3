@@ -2,7 +2,7 @@ package ru.hanqnero.uni.lab3.people;
 
 import org.jetbrains.annotations.NotNull;
 import ru.hanqnero.uni.lab3.environment.items.interfaces.CanBeHeld;
-import ru.hanqnero.uni.lab3.environment.items.Pickaxe;
+import ru.hanqnero.uni.lab3.environment.items.tools.Pickaxe;
 import ru.hanqnero.uni.lab3.environment.items.interfaces.Tool;
 import ru.hanqnero.uni.lab3.environment.abstractions.Location;
 import ru.hanqnero.uni.lab3.environment.abstractions.Location.Ground.RockType;

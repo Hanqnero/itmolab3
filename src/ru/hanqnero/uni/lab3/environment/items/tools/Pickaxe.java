@@ -1,4 +1,4 @@
-package ru.hanqnero.uni.lab3.environment.items;
+package ru.hanqnero.uni.lab3.environment.items.tools;
 
 import org.jetbrains.annotations.NotNull;
 import ru.hanqnero.uni.lab3.environment.abstractions.Location;
