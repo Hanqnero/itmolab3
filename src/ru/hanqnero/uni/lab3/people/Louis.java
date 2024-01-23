@@ -1,11 +1,11 @@
 package ru.hanqnero.uni.lab3.people;
 
-import ru.hanqnero.uni.lab3.environment.items.Clothes;
-import ru.hanqnero.uni.lab3.environment.items.containers.Container;
-import ru.hanqnero.uni.lab3.environment.food.cooking.Stove;
+import ru.hanqnero.uni.lab3.environment.abstractions.Scene;
 import ru.hanqnero.uni.lab3.environment.food.Food;
 import ru.hanqnero.uni.lab3.environment.food.FoodToCook;
-import ru.hanqnero.uni.lab3.environment.abstractions.Scene;
+import ru.hanqnero.uni.lab3.environment.food.cooking.Stove;
+import ru.hanqnero.uni.lab3.environment.items.Clothes;
+import ru.hanqnero.uni.lab3.environment.items.containers.Container;
 import ru.hanqnero.uni.lab3.people.interfaces.*;
 import ru.hanqnero.uni.lab3.people.properties.HairLength;
 import ru.hanqnero.uni.lab3.people.properties.HairStyle;
@@ -21,6 +21,7 @@ import static java.lang.Float.min;
 @SuppressWarnings("FieldCanBeLocal")
 public class Louis extends Person implements
         CanConsumeFood, CanHaveDesires, CanWearClothes, HasDislikedItems {
+    private final List<Object> dislikedItems = new ArrayList<>();
     private int saturation = 0;
     private Desire currentDesire;
     private Set<Clothes> currentClothes = new HashSet<>();
@@ -28,10 +29,13 @@ public class Louis extends Person implements
     private HairStyle hairStyle = HairStyle.Messy;
     @SuppressWarnings("unused")
     private Scene currentlyThinkingOf;
+    @SuppressWarnings("unused")
+    private float headAngle = 90f;
 
     @Override
-    public String getName() {return "Louis";}
-
+    public String getName() {
+        return "Louis";
+    }
 
     public void cookFood(FoodToCook f, Stove s) {
         s.heat(f);
@@ -40,19 +44,19 @@ public class Louis extends Person implements
 
     @Override
     public void consumeFood(Food f) {
-    if (!f.isConsumed()) {
-        var foodSaturation = f.getSaturationChange();
-        var personSaturation = this.getSaturation();
+        if (!f.isConsumed()) {
+            var foodSaturation = f.getSaturationChange();
+            var personSaturation = this.getSaturation();
 
-        if (this instanceof HasFavoriteFood) {
-            boolean isFoodFavorite = ((HasFavoriteFood) this).getFavoriteFood().getClass() == f.getClass();
-            if (isFoodFavorite) {
+            if (this instanceof HasFavoriteFood) {
+                boolean isFoodFavorite = ((HasFavoriteFood) this).getFavoriteFood().getClass() == f.getClass();
+                if (isFoodFavorite) {
                     foodSaturation *= 2;
+                }
             }
-        }
 
-        this.setSaturation(foodSaturation + personSaturation);
-        f.consume();
+            this.setSaturation(foodSaturation + personSaturation);
+            f.consume();
         }
     }
 
@@ -66,19 +70,21 @@ public class Louis extends Person implements
     }
 
     @Override
-    public int getSaturation() { return this.saturation; }
+    public int getSaturation() {
+        return this.saturation;
+    }
+
     @Override
-    public void setSaturation(int s) { this.saturation = s; }
+    public void setSaturation(int s) {
+        this.saturation = s;
+    }
 
-
-    @SuppressWarnings("unused")
-    private float headAngle = 90f;
     public void nod(float angle) {
         float MIN_ANGLE = 0f;
         float MAX_ANGLE = 60f;
 //        clamp the angle value
         angle = min(max(angle, MIN_ANGLE), MAX_ANGLE);
-       this.headAngle -= angle;
+        this.headAngle -= angle;
 
 //       The head is tilted Now
 
@@ -118,7 +124,6 @@ public class Louis extends Person implements
         this.faceHairLength = HairLength.Short;
     }
 
-
     @SuppressWarnings("unused")
     public HairLength getFaceHairLength() {
         return faceHairLength;
@@ -133,7 +138,6 @@ public class Louis extends Person implements
         this.hairStyle = hs;
     }
 
-    private final List<Object> dislikedItems = new ArrayList<>();
     @Override
     public Set<Object> getDislikedItems() {
         return new HashSet<>(dislikedItems);

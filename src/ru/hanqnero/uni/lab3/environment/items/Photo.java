@@ -21,7 +21,7 @@ public class Photo implements CanBeHeld {
 
     @Override
     public void whenHeld(CanHoldItems holder) {
-       this.holder = holder;
+        this.holder = holder;
     }
 
     @Override
@@ -35,7 +35,9 @@ public class Photo implements CanBeHeld {
     }
 
     @SuppressWarnings("unused")
-    public Scene getPicturedScene() { return picturedScene; }
+    public Scene getPicturedScene() {
+        return picturedScene;
+    }
 
 
     public enum Type {

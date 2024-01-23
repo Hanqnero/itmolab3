@@ -3,17 +3,6 @@ package ru.hanqnero.uni.lab3.environment.items;
 import ru.hanqnero.uni.lab3.environment.properties.Color;
 
 public class Clothes {
-    public Color getColor() {
-        return this.color;
-    }
-
-    public ClothingType getType() {
-        return this.type;
-    }
-
-    public enum ClothingType {
-        Suit, Blouse, Jeans, Jacket
-    }
     private final Color color;
     private final ClothingType type;
 
@@ -22,12 +11,24 @@ public class Clothes {
         this.type = t;
     }
 
+    public Color getColor() {
+        return this.color;
+    }
+
+    public ClothingType getType() {
+        return this.type;
+    }
+
     public boolean equals(Object that) {
         if (!(that instanceof Clothes)) {
             return false;
         }
-        var areTypesSame =  ((Clothes) that).getType() == this.getType();
+        var areTypesSame = ((Clothes) that).getType() == this.getType();
         var areColorsSame = ((Clothes) that).getColor() == this.getColor();
         return areTypesSame && areColorsSame;
+    }
+
+    public enum ClothingType {
+        Suit, Blouse, Jeans, Jacket
     }
 }

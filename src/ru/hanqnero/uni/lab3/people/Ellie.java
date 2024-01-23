@@ -12,17 +12,20 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Ellie extends Person implements
-        CanWearClothes, CanConsumeFood, CanRide, HasFaceExpression,HasMedicalCondition, HasDislikedItems, CanHoldItems {
+        CanWearClothes, CanConsumeFood, CanRide, HasFaceExpression, HasMedicalCondition, HasDislikedItems, CanHoldItems {
+    private final Set<Object> dislikedItems = new HashSet<>();
     private Set<Clothes> currentClothes = new HashSet<>();
     private int saturation;
     private CanBeHeld itemHeld;
     private int medicalCondition = 200;
     private CanBeRidden currentlyRides;
     private FaceExpression faceExpression;
-    private final Set<Object> dislikedItems = new HashSet<>();
+    private SleepingState sleepState = SleepingState.Awake;
 
     @Override
-    public String getName() {return "Ellie";}
+    public String getName() {
+        return "Ellie";
+    }
 
     @Override
     public Set<Clothes> getCurrentClothes() {
@@ -75,8 +78,8 @@ public class Ellie extends Person implements
     }
 
     public void hold(CanBeHeld item) {
-       this.itemHeld = item;
-       item.whenHeld(this);
+        this.itemHeld = item;
+        item.whenHeld(this);
     }
 
     @SuppressWarnings("unused")
@@ -126,7 +129,7 @@ public class Ellie extends Person implements
 
     @Override
     public void setFaceExpression(FaceExpression expression) {
-       faceExpression = expression;
+        faceExpression = expression;
     }
 
     @Override
@@ -154,11 +157,10 @@ public class Ellie extends Person implements
         dislikedItems.remove(o);
     }
 
-    public enum SleepingState {Awake, Sleeping}
-    private SleepingState sleepState = SleepingState.Awake;
     public void sleep() {
-       sleepState = SleepingState.Sleeping;
+        sleepState = SleepingState.Sleeping;
     }
+
     @SuppressWarnings("unused")
     public void wakeUp() {
         sleepState = SleepingState.Awake;
@@ -168,4 +170,6 @@ public class Ellie extends Person implements
     public SleepingState getSleepState() {
         return sleepState;
     }
+
+    public enum SleepingState {Awake, Sleeping}
 }

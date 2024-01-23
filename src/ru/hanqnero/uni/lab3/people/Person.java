@@ -8,13 +8,18 @@ import java.util.HashSet;
 import java.util.Set;
 
 public abstract class Person {
+    private final HashSet<ActionMood> currentMoods = new HashSet<>();
     private Scene currentScene;
     private Location currentLocation;
-    private final HashSet<ActionMood> currentMoods = new HashSet<>();
+    private float speechLoudness = 100f;
 
-    public void goOutOfLocation() { this.currentLocation.removeCharacter(this); }
+    public void goOutOfLocation() {
+        this.currentLocation.removeCharacter(this);
+    }
 
-    public Set<ActionMood> getCurrentMoods() { return currentMoods; }
+    public Set<ActionMood> getCurrentMoods() {
+        return currentMoods;
+    }
 
     public Scene getCurrentScene() {
         return this.currentScene;
@@ -25,9 +30,11 @@ public abstract class Person {
         this.currentScene = currentScene;
     }
 
-    private float speechLoudness = 100f;
     @SuppressWarnings("unused")
-    public float getSpeechLoudness() {return speechLoudness;}
+    public float getSpeechLoudness() {
+        return speechLoudness;
+    }
+
     public void doMoodAction(ActionMood mood) {
         //noinspection SwitchStatementWithTooFewBranches
         switch (mood) {
@@ -41,6 +48,7 @@ public abstract class Person {
     public void addNewMood(ActionMood mood) {
         currentMoods.add(mood);
     }
+
     public void removeMood(ActionMood mood) {
 
         //noinspection SwitchStatementWithTooFewBranches

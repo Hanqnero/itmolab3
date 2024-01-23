@@ -6,7 +6,9 @@ import ru.hanqnero.uni.lab3.environment.food.Breakfast;
 import ru.hanqnero.uni.lab3.environment.food.HotChocolate;
 import ru.hanqnero.uni.lab3.environment.food.Taste;
 import ru.hanqnero.uni.lab3.environment.food.cooking.Stove;
-import ru.hanqnero.uni.lab3.environment.items.*;
+import ru.hanqnero.uni.lab3.environment.items.Clothes;
+import ru.hanqnero.uni.lab3.environment.items.Photo;
+import ru.hanqnero.uni.lab3.environment.items.TV;
 import ru.hanqnero.uni.lab3.environment.items.containers.Coffin;
 import ru.hanqnero.uni.lab3.environment.items.containers.Cup;
 import ru.hanqnero.uni.lab3.environment.items.containers.Syringe;
@@ -107,9 +109,9 @@ public class Main {
         var tragedyScene = new Scene();
         tragedyScene.setLocation(new Location(Location.Type.DEFAULT));
         var gageInTragedy = new Gage();
-        var othersInTragedy = new Person[] {new Louis(), new Ellie(), new Rachel()};
+        var othersInTragedy = new Person[]{new Louis(), new Ellie(), new Rachel()};
         tragedyScene.addCharacter(gageInTragedy);
-        for (var p: othersInTragedy) {
+        for (var p : othersInTragedy) {
             tragedyScene.addCharacter(p);
             p.addNewMood(ActionMood.Screaming);
             p.doMoodAction(ActionMood.Screaming);
@@ -137,12 +139,12 @@ public class Main {
         coffin.fill(gageInLouisThought);
 
         louisThought.getLocation().addObject(coffin);
-        for (var p: peopleInLouisThought) {
+        for (var p : peopleInLouisThought) {
             louisThought.addCharacter(p);
         }
 
         if (coffin.isOpen()) {
-            for (var p: peopleInLouisThought) {
+            for (var p : peopleInLouisThought) {
                 p.addNewMood(ActionMood.Screaming);
                 p.goOutOfLocation();
             }
@@ -211,7 +213,10 @@ public class Main {
         var diggingScene = new Scene();
         var diggingLocation = new Location(Location.Type.DEFAULT) {
             private final Ground ground = new Ground(75, Ground.SoilType.ROCKY);
-            public Ground getGround() {return ground;}
+
+            public Ground getGround() {
+                return ground;
+            }
         };
         diggingScene.setLocation(diggingLocation);
 
@@ -227,22 +232,22 @@ public class Main {
 
         int rocksDug = 0;
         while (rocksDug < 20) {
-           try {
-               var dugStone = diggingJud.dig(diggingLocation.getGround());
-               if (dugStone) rocksDug++;
-               System.out.printf("Successfully mined %s with %s; current Exhaustion: %d%n", dugStone?"Stone":"Soil", diggingJud.getItemHeld(), diggingJud.getExhaustion());
-           } catch (WrongToolException e) {
-               switch (e.getRequiredTool()) {
-                   case PICKAXE -> {
-                       System.err.printf("Cannot mine stone with %s. Changing tool to %s%n", diggingJud.getItemHeld(), e.getRequiredTool());
-                       diggingJud.pickUp(pickaxe);
-                   }
-                   case SHOVEL -> {
-                       System.err.printf("Cannot dig trough soil with %s, Changing tool to %s%n", diggingJud.getItemHeld(), e.getRequiredTool());
-                       diggingJud.pickUp(shovel);
-                   }
-               }
-           }
+            try {
+                var dugStone = diggingJud.dig(diggingLocation.getGround());
+                if (dugStone) rocksDug++;
+                System.out.printf("Successfully mined %s with %s; current Exhaustion: %d%n", dugStone ? "Stone" : "Soil", diggingJud.getItemHeld(), diggingJud.getExhaustion());
+            } catch (WrongToolException e) {
+                switch (e.getRequiredTool()) {
+                    case PICKAXE -> {
+                        System.err.printf("Cannot mine stone with %s. Changing tool to %s%n", diggingJud.getItemHeld(), e.getRequiredTool());
+                        diggingJud.pickUp(pickaxe);
+                    }
+                    case SHOVEL -> {
+                        System.err.printf("Cannot dig trough soil with %s, Changing tool to %s%n", diggingJud.getItemHeld(), e.getRequiredTool());
+                        diggingJud.pickUp(shovel);
+                    }
+                }
+            }
         }
     }
 }

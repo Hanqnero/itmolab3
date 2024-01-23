@@ -8,17 +8,21 @@ import ru.hanqnero.uni.lab3.people.interfaces.CanHoldItems;
 import ru.hanqnero.uni.lab3.people.interfaces.HasExhaustion;
 
 public class Pickaxe implements CanBeHeld, Tool {
+    private final Handle handle = new Handle();
     private CanHoldItems holder;
 
     @Override
-    public Location.Ground.Tools getType() {return Location.Ground.Tools.PICKAXE;}
+    public Location.Ground.Tools getType() {
+        return Location.Ground.Tools.PICKAXE;
+    }
 
     @Override
     public void whenHeld(@NotNull CanHoldItems holder) {
-       this.holder = holder;
-       holder.getItemHeld().whenDropped();
+        this.holder = holder;
+        holder.getItemHeld().whenDropped();
 
     }
+
     public void whenDropped() {
         holder = null;
     }
@@ -27,8 +31,6 @@ public class Pickaxe implements CanBeHeld, Tool {
     public CanHoldItems getHolder() {
         return holder;
     }
-
-    private final Handle handle = new Handle();
 
     public void onMeetingHardStone() {
         handle.vibrate();

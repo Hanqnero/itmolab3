@@ -1,8 +1,12 @@
 package ru.hanqnero.uni.lab3.environment.abstractions;
 
-public class Preparations extends Location{
+public class Preparations extends Location {
 
     private float completeness = 0f;
+
+    public Preparations(Type t) {
+        super(t);
+    }
 
     public float getCompleteness() {
         return completeness;
@@ -15,10 +19,6 @@ public class Preparations extends Location{
 
     public boolean isCompleted() {
         return completeness == 1f;
-    }
-
-    public Preparations(Type t) {
-        super(t);
     }
 
     public void workOnCompletion(float amount) {

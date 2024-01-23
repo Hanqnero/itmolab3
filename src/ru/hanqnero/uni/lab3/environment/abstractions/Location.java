@@ -1,8 +1,8 @@
 package ru.hanqnero.uni.lab3.environment.abstractions;
 
+import ru.hanqnero.uni.lab3.environment.abstractions.exceptions.WrongToolException;
 import ru.hanqnero.uni.lab3.environment.items.interfaces.Furniture;
 import ru.hanqnero.uni.lab3.environment.items.interfaces.Tool;
-import ru.hanqnero.uni.lab3.environment.abstractions.exceptions.WrongToolException;
 import ru.hanqnero.uni.lab3.people.Person;
 import ru.hanqnero.uni.lab3.people.interfaces.HasExhaustion;
 
@@ -11,16 +11,114 @@ import java.util.List;
 
 public class Location {
 
-    public static class Ground {
-        public enum SoilType {NORMAL, ROCKY}
-        private final SoilType type;
+    protected final List<Furniture> objects = new ArrayList<>();
+    private final List<Person> characters = new ArrayList<>();
+    private final List<Person> charactersCenter = new ArrayList<>();
+    private final List<Person> charactersSide = new ArrayList<>();
+    private final Type type;
+    public Location(Type t) {
+        type = t;
+    }
 
+    @SuppressWarnings("unused")
+    public Type getType() {
+        return type;
+    }
+
+    public List<Furniture> getObjects() {
+        return new ArrayList<>(objects);
+    }
+
+    private boolean isPresent(Person p) {
+        var allCharacters = new ArrayList<Person>();
+        allCharacters.addAll(characters);
+        allCharacters.addAll(charactersCenter);
+        allCharacters.addAll(charactersSide);
+        return allCharacters.contains(p);
+    }
+
+    public List<Person> getCharacters() {
+        var allCharacters = new ArrayList<Person>();
+        allCharacters.addAll(characters);
+        allCharacters.addAll(charactersCenter);
+        allCharacters.addAll(charactersSide);
+        return allCharacters;
+    }
+
+    @SuppressWarnings("unused")
+    private boolean isPresent(Person p, Position pos) {
+        switch (pos) {
+            case UNSPECIFIED -> {
+                return characters.contains(p);
+            }
+            case CENTER -> {
+                return charactersCenter.contains(p);
+            }
+            case SIDE -> {
+                return charactersSide.contains(p);
+            }
+            default -> {
+                assert true : "Should not be reached";
+                return false;
+            }
+        }
+    }
+
+    public void addCharacter(Person p) {
+        if (!isPresent(p)) {
+            characters.add(p);
+            p.setCurrentLocation(this);
+        }
+
+    }
+
+    public void addCharacter(Person p, Position pos) {
+        if (!isPresent(p)) {
+            switch (pos) {
+                case UNSPECIFIED -> characters.add(p);
+                case CENTER -> charactersCenter.add(p);
+                case SIDE -> charactersSide.add(p);
+            }
+            p.setCurrentLocation(this);
+        }
+    }
+
+    public void removeCharacter(Person p) {
+        characters.remove(p);
+        charactersSide.remove(p);
+        charactersCenter.remove(p);
+    }
+
+    public void addObject(Furniture f) {
+        this.objects.add(f);
+    }
+
+    @SuppressWarnings("unused")
+    public void removeObject(Furniture f) {
+        this.objects.remove(f);
+    }
+
+    public void changePosition(Person p, Position pos) {
+        if (isPresent(p)) {
+            removeCharacter(p);
+            addCharacter(p, pos);
+        }
+    }
+
+    public enum Type {DEFAULT, CEREMONY, DIGGING_SPOT}
+
+    public enum Position {
+        UNSPECIFIED, CENTER, SIDE
+    }
+
+    public static class Ground {
         private static final int MIN_TOUGHNESS = 0;
         private static final int MAX_TOUGHNESS = 100;
+        private static final double ROCK_DIGGING_TIME_MULTIPLIER = 1.5d;
+        private final SoilType type;
         private final int soilToughness;
-
-        public enum Tools {HANDS,SPOON,SHOVEL,PICKAXE}
         private Tools requiredToolType;
+        private RockType caughtRock = RockType.NONE;
 
         public Ground(int toughness, SoilType type) {
             soilToughness = Math.max(MIN_TOUGHNESS, Math.min(MAX_TOUGHNESS, toughness));
@@ -33,9 +131,6 @@ public class Location {
             return (float) soilToughness / 5 * 3 / 100;
         }
 
-        public enum RockType {NONE, NORMAL, TOO_HARD}
-        private RockType caughtRock = RockType.NONE;
-
         private void updateRequiredTool() {
             if (caughtRock.compareTo(RockType.NONE) > 0) {
                 requiredToolType = Tools.PICKAXE;
@@ -43,13 +138,12 @@ public class Location {
             }
             var toughness = getSoilToughness();
             requiredToolType =
-                toughness < 20 ? Tools.HANDS :
-                toughness < 40 ? Tools.SPOON :
-                toughness < 80 ? Tools.SHOVEL:
-                                 Tools.PICKAXE;
+                    toughness < 20 ? Tools.HANDS :
+                            toughness < 40 ? Tools.SPOON :
+                                    toughness < 80 ? Tools.SHOVEL :
+                                            Tools.PICKAXE;
         }
 
-        private static final double ROCK_DIGGING_TIME_MULTIPLIER = 1.5d;
         private long getDiggingTime() {
             double time = soilToughness * 10L;
             if (caughtRock.compareTo(RockType.NONE) > 0) time *= ROCK_DIGGING_TIME_MULTIPLIER;
@@ -98,99 +192,11 @@ public class Location {
             updateAfterSuccessfulDig();
             return dugRockType;
         }
-    }
-    @SuppressWarnings("unused")
-    public Type getType() {
-        return type;
-    }
 
-    public enum Type { DEFAULT, CEREMONY, DIGGING_SPOT}
+        public enum SoilType {NORMAL, ROCKY}
 
-    public Location(Type t) {
-        type = t;
-    }
+        public enum Tools {HANDS, SPOON, SHOVEL, PICKAXE}
 
-    private final List<Person> characters = new ArrayList<>();
-    private final List<Person> charactersCenter = new ArrayList<>();
-    private final List<Person> charactersSide = new ArrayList<>();
-    private final Type type;
-    protected final List<Furniture> objects = new ArrayList<>();
-
-    public List<Furniture> getObjects() {
-        return new ArrayList<>(objects);
-    }
-
-    private boolean isPresent(Person p) {
-        var allCharacters = new ArrayList<Person>();
-        allCharacters.addAll(characters);
-        allCharacters.addAll(charactersCenter);
-        allCharacters.addAll(charactersSide);
-        return allCharacters.contains(p);
-    }
-
-    public List<Person> getCharacters() {
-        var allCharacters = new ArrayList<Person>();
-        allCharacters.addAll(characters);
-        allCharacters.addAll(charactersCenter);
-        allCharacters.addAll(charactersSide);
-        return allCharacters;
-    }
-
-    @SuppressWarnings("unused")
-    private boolean isPresent(Person p, Position pos) {
-        switch (pos) {
-            case UNSPECIFIED -> {
-                return characters.contains(p);
-            }
-            case CENTER -> {
-                return charactersCenter.contains(p);
-            }
-            case SIDE -> {
-                return charactersSide.contains(p);
-            }
-            default -> {
-                assert true: "Should not be reached";
-                return false;
-            }
-        }
-    }
-
-    public void addCharacter(Person p) {
-        if (!isPresent(p)) {
-            characters.add(p);
-            p.setCurrentLocation(this);
-        }
-
-    }
-    public void addCharacter(Person p, Position pos) {
-       if (!isPresent(p)) {
-           switch (pos) {
-               case UNSPECIFIED -> characters.add(p);
-               case CENTER      -> charactersCenter.add(p);
-               case SIDE        -> charactersSide.add(p);
-           }
-           p.setCurrentLocation(this);
-       }
-    }
-
-    public void removeCharacter(Person p) {
-        characters.remove(p);
-        charactersSide.remove(p);
-        charactersCenter.remove(p);
-    }
-
-    public void addObject(Furniture f) { this.objects.add(f); }
-    @SuppressWarnings("unused")
-    public void removeObject(Furniture f) { this.objects.remove(f); }
-
-    public enum Position {
-        UNSPECIFIED, CENTER, SIDE
-    }
-
-    public void changePosition(Person p, Position pos) {
-        if (isPresent(p)) {
-            removeCharacter(p);
-            addCharacter(p, pos);
-        }
+        public enum RockType {NONE, NORMAL, TOO_HARD}
     }
 }

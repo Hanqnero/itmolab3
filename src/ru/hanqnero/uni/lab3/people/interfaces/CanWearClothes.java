@@ -7,9 +7,12 @@ import java.util.Set;
 public interface CanWearClothes {
     @SuppressWarnings("unused")
     Set<Clothes> getCurrentClothes();
+
     @SuppressWarnings("unused")
     void setCurrentClothes(Set<Clothes> c);
+
     void addClothingItem(Clothes item);
+
     @SuppressWarnings("unused")
     void removeClothingItem(Clothes item);
 

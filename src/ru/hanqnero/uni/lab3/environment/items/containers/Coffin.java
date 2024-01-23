@@ -16,8 +16,8 @@ public class Coffin extends Container<Person> implements Furniture {
 
     @Override
     public void empty() {
-       setEmpty(true);
-       content = null;
+        setEmpty(true);
+        content = null;
     }
 
     @Override
@@ -25,7 +25,12 @@ public class Coffin extends Container<Person> implements Furniture {
         return content;
     }
 
-    public boolean isOpen() { return state;}
-    public void setState(boolean state) { this.state = state;}
+    public boolean isOpen() {
+        return state;
+    }
+
+    public void setState(boolean state) {
+        this.state = state;
+    }
 
 }

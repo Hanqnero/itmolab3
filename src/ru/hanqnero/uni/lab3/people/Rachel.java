@@ -8,20 +8,26 @@ import ru.hanqnero.uni.lab3.people.interfaces.HasMedicalCondition;
 public class Rachel extends Person
         implements CanBeAskedQuestions, HasMedicalCondition, CanWatchTV {
     private int availableBrainPower = 1000;
+    private int medicalCondition = 200;
 
     @Override
-    public String getName() {return "Rachel";}
+    public String getName() {
+        return "Rachel";
+    }
 
-    public int getAvailableBrainPower() { return availableBrainPower; }
+    public int getAvailableBrainPower() {
+        return availableBrainPower;
+    }
 
-    public void setAvailableBrainPower(int availableBrainPower) { this.availableBrainPower = availableBrainPower; }
-
+    public void setAvailableBrainPower(int availableBrainPower) {
+        this.availableBrainPower = availableBrainPower;
+    }
 
     @Override
     public void whenAskedQuestion(Question q) {
-        this.setAvailableBrainPower(this.getAvailableBrainPower()-q.brainPower());
+        this.setAvailableBrainPower(this.getAvailableBrainPower() - q.brainPower());
         try {
-            Thread.sleep((long) (q.baseTimeToAnswer()*10*getAnsweringSpeed()));
+            Thread.sleep((long) (q.baseTimeToAnswer() * 10 * getAnsweringSpeed()));
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
@@ -33,14 +39,13 @@ public class Rachel extends Person
         return (double) availableBrainPower / 1000;
     }
 
-    private int medicalCondition = 200;
-    @Override
-    public void setMedicalCondition(int m) {
-       medicalCondition = m;
-    }
-
     @Override
     public int getMedicalCondition() {
         return medicalCondition;
+    }
+
+    @Override
+    public void setMedicalCondition(int m) {
+        medicalCondition = m;
     }
 }
