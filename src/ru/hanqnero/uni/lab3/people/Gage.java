@@ -8,7 +8,6 @@ import ru.hanqnero.uni.lab3.environment.food.HotChocolate;
 import ru.hanqnero.uni.lab3.environment.food.Taste;
 import ru.hanqnero.uni.lab3.people.interfaces.*;
 import ru.hanqnero.uni.lab3.people.properties.FaceExpression;
-import ru.hanqnero.uni.lab3.people.properties.LifeStatus;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -91,20 +90,20 @@ public class Gage extends Person implements
         return faceExpression;
     }
 
-    private LifeStatus lifeStatus = LifeStatus.Alive;
+    private boolean isAlive = true;
     @Override
     public void die() {
-       lifeStatus = LifeStatus.Dead;
+       isAlive = false;
     }
 
     @Override
     public void resurrect() {
-        lifeStatus = LifeStatus.Alive;
+        isAlive = true;
     }
 
     @Override
-    public LifeStatus getLifeStatus() {
-        return lifeStatus;
+    public boolean getAlive() {
+        return isAlive;
     }
 
     public void driveRisky(float safeDrivingThreshold, float actualDrivingSpeed) {
